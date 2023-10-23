@@ -1,0 +1,22 @@
+name: Test Suite
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Containers
+        run: |
+          docker-compose up -d --build
+      - name: Run Django migrations
+        run: |
+          docker compose exec django python manage.py migrate
+      # - name: Run Django tests
+      #   run: |
+      #     docker compose exec django python manage.py test
+      - name: Run PyTest
+        run: |
+          docker compose exec django pytest

@@ -1,0 +1,82 @@
+name: Tests
+on: [push, pull_request]
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { python: "3.9", os: ubuntu-latest }
+          - { python: "3.10", os: ubuntu-latest }
+          - { python: "3.11", os: ubuntu-latest }
+          - { python: "3.11", os: windows-latest }
+          - { python: "3.11", os: macos-latest }
+          - { python: "3.12", os: ubuntu-latest }
+    name: Python ${{ matrix.python }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: cookiecutter-django-package
+      - uses: actions/setup-python@v4.7.1
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install tools using pip
+        working-directory: cookiecutter-django-package
+        run: |
+          pip install --constraint=.github/workflows/constraints.txt pip
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt cookiecutter
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt nox
+          pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
+          pipx install --pip-args=--constraint=.github/workflows/constraints.txt poetry
+      - name: Generate project using Cookiecutter
+        run: cookiecutter --no-input cookiecutter-django-package
+      - name: Create git repository
+        if: matrix.os != 'windows-latest'
+        run: |
+          git init
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git add .
+          git commit --message="Initial import"
+        working-directory: cookiecutter-django-package
+      - name: Create git repository (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          git init
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          # https://github.com/cookiecutter/cookiecutter/issues/405
+          $ErrorActionPreference = "Continue"
+          git add .
+          $ErrorActionPreference = "Stop"
+          git add --renormalize .
+          git commit --message="Initial import"
+        working-directory: cookiecutter-django-package
+      - name: Compute cache key for pre-commit
+        if: matrix.os != 'windows-latest'
+        id: cache_key
+        shell: python
+        run: |
+          import hashlib
+          import sys
+
+          python = "py{}.{}".format(*sys.version_info[:2])
+          payload = sys.version.encode() + sys.executable.encode()
+          digest = hashlib.sha256(payload).hexdigest()
+          result = "${{ runner.os }}-{}-{}-pre-commit".format(python, digest)
+
+          print("::set-output name=result::{}".format(result))
+      - uses: actions/cache@v3
+        if: matrix.os != 'windows-latest'
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ steps.cache_key.outputs.result }}-${{ hashFiles('cookiecutter-django-package/.pre-commit-config.yaml') }}
+          restore-keys: |
+            ${{ steps.cache_key.outputs.result }}-
+      - name: Run test suite using Nox
+        run: nox --force-color --python=${{ matrix.python }}
+        working-directory: cookiecutter-django-package
+      - name: Install dependencies using Poetry
+        run: poetry install --ansi
+        working-directory: cookiecutter-django-package
