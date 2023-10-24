@@ -79,7 +79,7 @@ jobs:
         if: matrix.session == 'tests'
         run: |
           pipx install --pip-args=--constraint=.github/workflows/constraints.txt playwright
-          python -m playwright install --with-deps
+          playwright install --with-deps chromium
       {% endif %}
       - name: Compute pre-commit cache key
         if: matrix.session == 'pre-commit'
