@@ -58,7 +58,7 @@ jobs:
 
       - name: Install pipx
         run: |
-          python3 -m pip install --user pipx
+          python3 -m pip install pipx
           python3 -m pipx ensurepath --force
 
       - name: Install Poetry
@@ -143,7 +143,7 @@ jobs:
         run: |
           pip install --constraint=.github/workflows/constraints.txt pip
           pip --version
-          python3 -m pip install --user pipx
+          python3 -m pip install pipx
           python3 -m pipx ensurepath --force
 
       - name: Install Poetry
