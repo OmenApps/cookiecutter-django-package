@@ -484,10 +484,10 @@ with more details.
 - - `noxfile.py`
   - Configuration for [Nox](using-nox)
 - - `pyproject.toml`
-    - Configuration for [Poetry](using-poetry),
-      [Coverage.py](the-coverage-session),
-      [isort](the-isort-hook)
-      :::
+  - Configuration for [Poetry](using-poetry),
+    [Coverage.py](the-coverage-session),
+    [isort](the-isort-hook)
+    :::
 
 The `pyproject.toml` file is described in more detail [below](the-pyproject-toml-file).
 
