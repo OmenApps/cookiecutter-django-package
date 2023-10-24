@@ -21,17 +21,11 @@ def is_responsive(url):
 
 
 def check_docker_ps():
-    """Check if docker ps is running, and log the output using subprocess.Popen."""
-    try:
-        process = subprocess.Popen(
-            ["docker", "ps"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True
-        )  # nosec
-        with process.stdout:
-            for line in iter(process.stdout.readline, b""):
-                logging.info(f"got line from subprocess: {line}")
-        return True
-    except subprocess.CalledProcessError:
-        return False
+    """Check if docker compose is running, and log the output using subprocess.Popen."""
+    cmd = ["docker", "ps"]
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)  # nosec
+    stdout, stderr = proc.communicate()
+    logging.info(f"check_docker_ps return code: {proc.returncode}\noutput: {stdout}\nerrors: {stderr}")
 
 
 @pytest.fixture(scope="session")
