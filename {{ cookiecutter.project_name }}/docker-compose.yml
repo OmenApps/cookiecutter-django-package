@@ -1,8 +1,7 @@
 version: "3"
 
 volumes:
-  local_postgres_data: {}
-  local_postgres_data_backups: {}
+  local_postgres_data:
 
 services:
   django_test:
@@ -26,8 +25,7 @@ services:
     image: {{ cookiecutter.package_name }}_local_postgres
     container_name: postgres_test
     volumes:
-      - local_postgres_data:/var/lib/postgresql/data:Z
-      - local_postgres_data_backups:/backups:z
+      - local_postgres_data:/var/lib/postgresql/data
     environment:
       - ENGINE=django.db.backends.postgresql_psycopg2
       - POSTGRES_PASSWORD=postgres
