@@ -65,49 +65,19 @@ The current stable release is [2023.10.1].
 
 ### System requirements
 
-You need a recent Windows, Linux, Unix, or Mac system with [git] installed.
-
-:::{note}
-When working with this template on Windows,
-configure your text editor or IDE
-to use only [UNIX-style line endings] (line feeds).
+You need a recent Linux or Unix system with [git] installed.
 
 The project template contains a [.gitattributes] file
 which enables end-of-line normalization for your entire working tree.
 Additionally, the [Prettier] code formatter converts line endings to line feeds.
-Windows-style line endings (`CRLF`) should therefore never make it into your Git repository.
 
 Nonetheless, configuring your editor for line feeds is recommended
 to avoid complaints from the [pre-commit] hook for Prettier.
 :::
 
-### Getting Python (Windows)
+### Getting Python (Linux, Unix)
 
-If you're on Windows, download the recommended installer for the latest stable release
-of Python from the official [Python website]. Before clicking **Install now**,
-enable the option to add Python to your `PATH` environment variable.
-
-Verify your installation by checking the output of the following commands in a new terminal window:
-
-```
-python -VV
-py -VV
-```
-
-Both of these commands should display the current Python version installed on your computer.
-
-For local testing with multiple Python versions, repeat these steps for the latest bugfix
-releases of Python 3.9+, with the following changes:
-
-- Do _not_ enable the option to add Python to the `PATH` environment variable.
-- `py -VV` and `python -VV` should still display the version of the latest stable release.
-- `py -X.Y -VV` (e.g. `py -3.9 -VV`) should display the exact version you just installed.
-
-Note that binary installers are not provided for security releases.
-
-### Getting Python (Mac, Linux, Unix)
-
-If you're on a Mac, Linux, or Unix system, use [pyenv] for installing and managing
+If you're on a Linux, or Unix system, use [pyenv] for installing and managing
 Python versions. Please refer to the documentation of this project for detailed
 installation and usage instructions. (The following instructions assume that
 your system already has [bash] and [curl] installed.)
@@ -2102,8 +2072,7 @@ and when a pull request is opened or receives new commits.
 Each Nox session runs in a separate job,
 using the current release of Python
 and the [latest Ubuntu runner][github actions runners].
-Selected Nox sessions also run on Windows and macOS,
-and with older Python versions,
+Selected Nox sessions also run on older Python versions,
 as shown in the table below:
 
 :::{list-table} Jobs in the Tests workflow
@@ -2121,12 +2090,6 @@ as shown in the table below:
 - - [tests](the-tests-session)
   - Ubuntu
   - 3.11, 3.9, 3.10, 3.12
-- - [tests](the-tests-session)
-  - Windows
-  - 3.11
-- - [tests](the-tests-session)
-  - macOS
-  - 3.11
 - - [coverage](the-coverage-session)
   - Ubuntu
   - 3.11

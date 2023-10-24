@@ -9,11 +9,11 @@ jobs:
           - { python: "3.9", os: ubuntu-latest }
           - { python: "3.10", os: ubuntu-latest }
           - { python: "3.11", os: ubuntu-latest }
-          - { python: "3.11", os: windows-latest }
-          - { python: "3.11", os: macos-latest }
           - { python: "3.12", os: ubuntu-latest }
     name: Python ${{ matrix.python }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.39.0-jammy
     steps:
       - uses: actions/checkout@v4
         with:
@@ -33,41 +33,19 @@ jobs:
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           pipx install --pip-args=--constraint=.github/workflows/constraints.txt poetry
 
-      - name: Setup docker (missing on MacOS)
-        if: matrix.os == 'macos-latest'
-        uses: crazy-max/ghaction-setup-docker@v2
-        env:
-          COLIMA_START_ARGS: --cpu 4 --memory 8 --disk 32
-
       - name: Generate project using Cookiecutter
         run: cookiecutter --no-input cookiecutter-django-package
 
       - name: Create git repository
-        if: matrix.os != 'windows-latest'
         run: |
           git init
           git config --local user.name "GitHub Action"
           git config --local user.email "action@github.com"
           git add .
-          git commit --message="Initial import"
-        working-directory: cookiecutter-django-package-instance
-
-      - name: Create git repository (Windows)
-        if: matrix.os == 'windows-latest'
-        run: |
-          git init
-          git config --local user.name "GitHub Action"
-          git config --local user.email "action@github.com"
-          # https://github.com/cookiecutter/cookiecutter/issues/405
-          $ErrorActionPreference = "Continue"
-          git add .
-          $ErrorActionPreference = "Stop"
-          git add --renormalize .
           git commit --message="Initial import"
         working-directory: cookiecutter-django-package-instance
 
       - name: Compute cache key for pre-commit
-        if: matrix.os != 'windows-latest'
         id: cache_key
         shell: python
         run: |
@@ -81,7 +59,6 @@ jobs:
 
           print("::set-output name=result::{}".format(result))
       - uses: actions/cache@v3
-        if: matrix.os != 'windows-latest'
         with:
           path: ~/.cache/pre-commit
           key: ${{ steps.cache_key.outputs.result }}-${{ hashFiles('cookiecutter-django-package-instance/.pre-commit-config.yaml') }}

@@ -126,6 +126,9 @@ jobs:
 
   coverage:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.39.0-jammy
+
     needs: tests
     steps:
       - name: Check out the repository
