@@ -42,7 +42,7 @@ jobs:
           git config --local user.email "action@github.com"
           git add .
           git commit --message="Initial import"
-        working-directory: cookiecutter-django-package
+        working-directory: cookiecutter-django-package-instance
 
       - name: Create git repository (Windows)
         if: matrix.os == 'windows-latest'
@@ -56,7 +56,7 @@ jobs:
           $ErrorActionPreference = "Stop"
           git add --renormalize .
           git commit --message="Initial import"
-        working-directory: cookiecutter-django-package
+        working-directory: cookiecutter-django-package-instance
 
       - name: Compute cache key for pre-commit
         if: matrix.os != 'windows-latest'
@@ -76,14 +76,14 @@ jobs:
         if: matrix.os != 'windows-latest'
         with:
           path: ~/.cache/pre-commit
-          key: ${{ steps.cache_key.outputs.result }}-${{ hashFiles('cookiecutter-django-package/.pre-commit-config.yaml') }}
+          key: ${{ steps.cache_key.outputs.result }}-${{ hashFiles('cookiecutter-django-package-instance/.pre-commit-config.yaml') }}
           restore-keys: |
             ${{ steps.cache_key.outputs.result }}-
 
       - name: Run test suite using Nox
         run: nox --force-color --python=${{ matrix.python }}
-        working-directory: cookiecutter-django-package
+        working-directory: cookiecutter-django-package-instance
 
       - name: Install dependencies using Poetry
         run: poetry install --ansi
-        working-directory: cookiecutter-django-package
+        working-directory: cookiecutter-django-package-instance
