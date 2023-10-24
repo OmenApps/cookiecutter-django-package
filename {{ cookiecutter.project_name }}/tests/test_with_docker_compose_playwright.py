@@ -28,13 +28,31 @@ def check_docker_ps():
     logging.info(f"check_docker_ps return code: {proc.returncode}\noutput: {stdout}\nerrors: {stderr}")
 
 
+def check_django_logs():
+    """Check if docker compose is running, and log the output using subprocess.Popen."""
+    cmd = ["docker", "compose", "logs", "django_test"]
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)  # nosec
+    stdout, stderr = proc.communicate()
+    logging.info(f"check_docker_ps return code: {proc.returncode}\noutput: {stdout}\nerrors: {stderr}")
+
+
+def check_postgres_logs():
+    """Check if docker compose is running, and log the output using subprocess.Popen."""
+    cmd = ["docker", "compose", "logs", "postgres_test"]
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)  # nosec
+    stdout, stderr = proc.communicate()
+    logging.info(f"check_docker_ps return code: {proc.returncode}\noutput: {stdout}\nerrors: {stderr}")
+
+
 @pytest.fixture(scope="session")
 def http_service(docker_ip, docker_services):
     """Ensure that HTTP service is up and responsive."""
     port = docker_services.port_for("django_test", 8000)
-    url = f"http://{docker_ip}:{port}"
+    url = f"http://{docker_ip}:{port}/"
     logging.info(f"http_service url: {url}")
     check_docker_ps()
+    check_django_logs()
+    check_postgres_logs()
     docker_services.wait_until_responsive(timeout=60.0, pause=0.1, check=lambda: is_responsive(url))
 
     return url
