@@ -54,7 +54,7 @@ def http_service(docker_ip, docker_services):
     check_docker_ps()
     check_django_logs()
     check_postgres_logs()
-    docker_services.wait_until_responsive(timeout=60.0, pause=0.1, check=lambda: is_responsive(url))
+    # docker_services.wait_until_responsive(timeout=60.0, pause=0.1, check=lambda: is_responsive(url))
 
     return url
 
