@@ -64,7 +64,7 @@ jobs:
           pipx install --pip-args=--constraint=.github/workflows/constraints.txt nox
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           nox --version
-      
+
       - name: Install pytest
         run: |
           pipx install --pip-args=--constraint=.github/workflows/constraints.txt pytest
@@ -74,13 +74,13 @@ jobs:
       - name: Install django
         run: |
           python -m pip install 'Django~=${{"{{"}} matrix.django {{"}}"}}.0'
-      {% if cookiecutter.use_playwright %}
+{% if cookiecutter.use_playwright %}
       - name: Install Playwright
         if: matrix.session == 'tests'
         run: |
           pipx install --pip-args=--constraint=.github/workflows/constraints.txt playwright
           playwright install --with-deps chromium
-      {% endif %}
+{% endif %}
       - name: Compute pre-commit cache key
         if: matrix.session == 'pre-commit'
         id: pre-commit-cache
