@@ -1,5 +1,5 @@
 {
-  "project_name": "cookiecutter-django-package-demo",
+  "project_name": "cookiecutter-django-package-instance",
   "package_name": "{{ cookiecutter.project_name.replace('-', '_') }}",
   "package_description": "A Django package that ...",
   "author": "Your Name",
