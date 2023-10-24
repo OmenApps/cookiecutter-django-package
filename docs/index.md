@@ -65,7 +65,6 @@ The project template is centered around the following tools:
 [1]: https://python-poetry.org/
 [2]: https://nox.thea.codes/
 [3]: https://github.com/features/actions
-
 [cookiecutter]: https://github.com/audreyr/cookiecutter
-[Cookiecutter Django Package]: https://github.com/omenapps/cookiecutter-django-package
-[Hypermodern Python Cookiecutter]: https://github.com/cjolowicz/cookiecutter-hypermodern-python
+[cookiecutter django package]: https://github.com/omenapps/cookiecutter-django-package
+[hypermodern python cookiecutter]: https://github.com/cjolowicz/cookiecutter-hypermodern-python

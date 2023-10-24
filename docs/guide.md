@@ -18,9 +18,9 @@ and the [tutorials](tutorials).
 
 The {{ CDP }} is a general-purpose template for Django packages,
 released under the [MIT license] and hosted on
-[GitHub][Cookiecutter Django Package].
+[GitHub][cookiecutter django package].
 
-The main objective of this project template is to enable current 
+The main objective of this project template is to enable current
 best practices through modern Python and Django tooling. Our goals are to:
 
 - focus on simplicity,
@@ -54,7 +54,7 @@ Here is a detailed list of features for this Python template:
 
 ### Version policy
 
-The {{ CDP }} uses [Calendar Versioning] with a `YYYY.MM.RR` versioning scheme, where `RR` 
+The {{ CDP }} uses [Calendar Versioning] with a `YYYY.MM.RR` versioning scheme, where `RR`
 is the consecutive release number in the given year and month.
 
 The current stable release is [2023.10.1].
@@ -83,7 +83,7 @@ to avoid complaints from the [pre-commit] hook for Prettier.
 
 ### Getting Python (Windows)
 
-If you're on Windows, download the recommended installer for the latest stable release 
+If you're on Windows, download the recommended installer for the latest stable release
 of Python from the official [Python website]. Before clicking **Install now**,
 enable the option to add Python to your `PATH` environment variable.
 
@@ -96,7 +96,7 @@ py -VV
 
 Both of these commands should display the current Python version installed on your computer.
 
-For local testing with multiple Python versions, repeat these steps for the latest bugfix 
+For local testing with multiple Python versions, repeat these steps for the latest bugfix
 releases of Python 3.9+, with the following changes:
 
 - Do _not_ enable the option to add Python to the `PATH` environment variable.
@@ -107,8 +107,8 @@ Note that binary installers are not provided for security releases.
 
 ### Getting Python (Mac, Linux, Unix)
 
-If you're on a Mac, Linux, or Unix system, use [pyenv] for installing and managing 
-Python versions. Please refer to the documentation of this project for detailed 
+If you're on a Mac, Linux, or Unix system, use [pyenv] for installing and managing
+Python versions. Please refer to the documentation of this project for detailed
 installation and usage instructions. (The following instructions assume that
 your system already has [bash] and [curl] installed.)
 
@@ -140,8 +140,8 @@ $ pyenv install 3.10.13
 $ pyenv install 3.9.18
 ```
 
-After creating your project (see [below](creating-a-project)), you can make 
-these Python versions accessible in the project directory, using the 
+After creating your project (see [below](creating-a-project)), you can make
+these Python versions accessible in the project directory, using the
 following command:
 
 ```console
@@ -155,9 +155,9 @@ For example, use `python3.9` to invoke Python 3.9.
 ### Requirements
 
 :::{note}
-It is recommended to use [pipx] to install Python tools which are not 
+It is recommended to use [pipx] to install Python tools which are not
 specific to a single project. Please refer to the official documentation
-for detailed installation and usage instructions. If you decide to 
+for detailed installation and usage instructions. If you decide to
 skip `pipx` installation, use [pip install] with the `--user` option instead.
 :::
 
@@ -210,9 +210,9 @@ Use the `--checkout` option with the [current stable release][2023.10.1]:
 $ cookiecutter gh:omenapps/cookiecutter-django-package --checkout="2023.10.1"
 ```
 
-Cookiecutter downloads the template, and asks you a series of questions about 
+Cookiecutter downloads the template, and asks you a series of questions about
 project variables, for example, how you wish your project to be named.
-When you have answered these questions, your project is generated in the 
+When you have answered these questions, your project is generated in the
 current directory, using a subdirectory with the same name as your project.
 
 Here is a complete list of the project variables defined by this template:
@@ -269,25 +269,25 @@ or `0.0.0` for an unreleased package.
 See [The Release workflow](the-release-workflow) for details.
 :::
 
-Your choices are recorded in the file `.cookiecutter.json` in the generated 
+Your choices are recorded in the file `.cookiecutter.json` in the generated
 project, together with the URL of this Cookiecutter template.
 Having this [JSON] file in the project makes it possible later on
 to update your project with changes from the Cookiecutter template,
 using tools such as [cupper].
 
 In the remainder of this guide, `<project>` and `<package>` are used
-to refer to the project (with dashes) and package name (with 
+to refer to the project (with dashes) and package name (with
 underscores), respectively. By default, their only difference is that
 the project name uses dashes (_kebab case_),
 whereas the package name uses underscores (_snake case_).
 
 ### Uploading to GitHub
 
-This project template is designed for use with [GitHub]. After generating 
-the project, your next steps are to create a Git repository and upload it 
+This project template is designed for use with [GitHub]. After generating
+the project, your next steps are to create a Git repository and upload it
 to GitHub.
 
-Change to the root directory of your new project, initialize a Git repository, 
+Change to the root directory of your new project, initialize a Git repository,
 and create a commit for the initial project structure. In the commands below,
 replace `<project>` by the name of your project.
 
@@ -305,7 +305,7 @@ which is the [default branch name for GitHub repositories][github renaming].
 $ git branch --move --force main
 ```
 
-Create an empty repository on [GitHub], using the project name you chose 
+Create an empty repository on [GitHub], using the project name you chose
 when you generated the project.
 
 :::{note}
@@ -313,8 +313,8 @@ Do **not** initialize with a `README.md`, `LICENSE`, or `.gitignore`.
 These files are provided by the project template.
 :::
 
-Finally, upload your repository to GitHub. In the commands below, 
-replace `<username>` by your GitHub username, and `<project>` by the 
+Finally, upload your repository to GitHub. In the commands below,
+replace `<username>` by your GitHub username, and `<project>` by the
 name of your project.
 
 ```console
@@ -334,7 +334,7 @@ $ git push https://your_username@github.com/<org_username>/<project>.git
 ```
 
 Now may be a good time to set up Continuous Integration for your repository.
-Refer to the section [External services](external-services) for detailed 
+Refer to the section [External services](external-services) for detailed
 instructions.
 
 ## Project overview
@@ -364,7 +364,7 @@ Let's start with the directory layout:
 :::
 
 The Django package is located in the `src/<package_name>` directory.
-For more details on these files, refer to the section 
+For more details on these files, refer to the section
 [The initial package](the-initial-package).
 
 :::{list-table} Django package
@@ -449,7 +449,7 @@ The `.github/workflows` directory contains the [GitHub Actions workflows](github
 
 The project contains many configuration files for developer tools.
 Most of these are located in the top-level directory.
-The table below lists these files, and links each file to a section 
+The table below lists these files, and links each file to a section
 with more details.
 
 :::{list-table} Configuration files
@@ -484,10 +484,10 @@ with more details.
 - - `noxfile.py`
   - Configuration for [Nox](using-nox)
 - - `pyproject.toml`
-  - Configuration for [Poetry](using-poetry),
-    [Coverage.py](the-coverage-session),
-    [isort](the-isort-hook)
-:::
+    - Configuration for [Poetry](using-poetry),
+      [Coverage.py](the-coverage-session),
+      [isort](the-isort-hook)
+      :::
 
 The `pyproject.toml` file is described in more detail [below](the-pyproject-toml-file).
 
@@ -542,7 +542,7 @@ src/
 
 ### The test suite
 
-Tests are written using the [pytest] testing framework, the _de facto_ 
+Tests are written using the [pytest] testing framework, the _de facto_
 standard for testing in Python, along with [pyest-django]
 
 The test suite is located in the `tests` directory:
@@ -557,9 +557,9 @@ The test suite is [declared as a package][pytest layout],
 and mirrors the source layout of the package under test.
 The file `test_<package_name>.py` contains tests for the Django package.
 
-Initially, the test suite contains a single test case, checking whether the 
-program exits with a status code of zero. It also provides a [test fixture] 
-using [click.testing.CliRunner], a helper class for invoking the program 
+Initially, the test suite contains a single test case, checking whether the
+program exits with a status code of zero. It also provides a [test fixture]
+using [click.testing.CliRunner], a helper class for invoking the program
 from within tests.
 
 For details on how to run the test suite,
@@ -586,7 +586,7 @@ The top-level directory contains several stand-alone documentation files:
 
 `CODE_OF_CONDUCT.md`
 
-: The Code of Conduct outlines the behavior expected from participants of 
+: The Code of Conduct outlines the behavior expected from participants of
   your project. It is adapted from the [Contributor Covenant], version 2.1.
 
 `LICENSE.md`
@@ -602,9 +602,9 @@ The documentation files in the `docs` directory are built using [Sphinx] and [My
 
 `index.md`
 
-: This is the main documentation page. It includes the project description 
-  from `README.md`. This file also defines the navigation menu, with links 
-  to other documentation pages. The *Changelog* menu entry links to 
+: This is the main documentation page. It includes the project description
+  from `README.md`. This file also defines the navigation menu, with links
+  to other documentation pages. The *Changelog* menu entry links to
   the [GitHub Releases][github release] page of your project.
 
 `contributing.md`
@@ -621,13 +621,13 @@ The documentation files in the `docs` directory are built using [Sphinx] and [My
 
 `reference.md`
 
-: The API reference for your project. It is generated from docstrings and 
-  type annotations in the source code, using the [autodoc] and [napoleon] 
+: The API reference for your project. It is generated from docstrings and
+  type annotations in the source code, using the [autodoc] and [napoleon]
   extensions.
 
 `usage.md`
 
-: The command-line reference for your project. It is generated by inspecting 
+: The command-line reference for your project. It is generated by inspecting
   the [click] entry-point in your package, using the [sphinx-click] extension.
 
 `terminology.md`
@@ -660,15 +660,15 @@ see [The docs session](the-docs-session).
 
 ### The pyproject.toml file
 
-The configuration file for the Django package is located in the root directory 
-of the project, and named `pyproject.toml`. It uses the [TOML] configuration 
+The configuration file for the Django package is located in the root directory
+of the project, and named `pyproject.toml`. It uses the [TOML] configuration
 file format, and contains two sections---_tables_ in TOML parlance---,
 specified in [PEP 517][pep 517] and [518][pep 518]:
 
 - The `build-system` table
-  declares the requirements and the entry point used to build a distribution 
+  declares the requirements and the entry point used to build a distribution
   package for the project. This template uses [Poetry] as the build system.
-- The `tool` table contains sub-tables where tools can store configuration 
+- The `tool` table contains sub-tables where tools can store configuration
   under their [PyPI] name.
 
 :::{list-table} Tool configurations in pyproject.toml
@@ -683,9 +683,9 @@ specified in [PEP 517][pep 517] and [518][pep 518]:
 
 :::
 
-The `tool.poetry` table contains the metadata for your package, such as its 
+The `tool.poetry` table contains the metadata for your package, such as its
 name, version, and authors, as well as the list of dependencies for the package.
-Please refer to the [Poetry documentation][pyproject.toml] for a detailed 
+Please refer to the [Poetry documentation][pyproject.toml] for a detailed
 description of each configuration key.
 
 (version-constraints)=
@@ -695,7 +695,7 @@ description of each configuration key.
 :::{admonition} TL;DR
 This project template omits upper bounds from all version constraints.
 
-You are encouraged to manually remove upper bounds for dependencies you 
+You are encouraged to manually remove upper bounds for dependencies you
 add to your project using Poetry:
 
 1. Replace `^1.2.3` with `>=1.2.3` in `pyproject.toml`
@@ -703,18 +703,18 @@ add to your project using Poetry:
 
 :::
 
-[Version constraints][versions and constraints] express which versions of 
+[Version constraints][versions and constraints] express which versions of
 dependencies are compatible with your project. In the case of core dependencies,
-they are also a part of distribution packages, and as such affect end-users 
+they are also a part of distribution packages, and as such affect end-users
 of your package.
 
 :::{note}
-Dependencies are Python packages used by your project, and they come in 
+Dependencies are Python packages used by your project, and they come in
 two types:
 
-- _Core dependencies_ are required by users running your code, and typically consist 
+- _Core dependencies_ are required by users running your code, and typically consist
   of third-party libraries imported by your package. When your package is distributed,
-  the [package metadata] includes these dependencies, allowing tools like [pip] to 
+  the [package metadata] includes these dependencies, allowing tools like [pip] to
   automatically install them alongside your package.
 - _Development dependencies_ are only required by developers working on your code.
   Examples are applications used to run tests, check code for style and correctness,
@@ -723,7 +723,7 @@ two types:
 
 :::
 
-For every dependency added to your project, Poetry writes a version constraint 
+For every dependency added to your project, Poetry writes a version constraint
 to `pyproject.toml`. Dependencies are kept in two TOML tables:
 
 - `tool.poetry.dependencies`---for core dependencies
@@ -736,9 +736,9 @@ By default, version constraints added by Poetry have both a lower and an upper b
 - The upper bound allows users to upgrade to newer releases of dependencies,
   as long as the version number does not indicate a breaking change.
 
-According to the [Semantic Versioning] standard, only major releases may contain 
+According to the [Semantic Versioning] standard, only major releases may contain
 breaking changes, once a project has reached version 1.0.0.
-A major release is one that increments the major version (the first component 
+A major release is one that increments the major version (the first component
 of the version identifier).
 An example for such a version constraint would be `^1.2.3`,
 which is a Poetry-specific shorthand equivalent to `>= 1.2.3, < 2`.
@@ -935,8 +935,8 @@ it creates a special `.egg-link` file that links to your local source code.
 This means that code edits are directly visible in the environment
 without the need to reinstall your package.
 
-Installing your package implicitly creates the virtual environment if it does 
-not exist yet, using the currently active Python interpreter, or the first 
+Installing your package implicitly creates the virtual environment if it does
+not exist yet, using the currently active Python interpreter, or the first
 one found which satisfies the Python versions supported by your project.
 
 ### Managing environments
@@ -952,8 +952,8 @@ $ poetry env use 3.12
 $ poetry env use 3.11
 ```
 
-Only one Poetry environment can be active at any time. Note that `3.11` comes last, 
-to ensure that the current Python release is the  active environment. 
+Only one Poetry environment can be active at any time. Note that `3.11` comes last,
+to ensure that the current Python release is the active environment.
 Install your package with `poetry install` into each environment after creating it.
 
 Use the command `poetry env list` to list the available environments:
@@ -990,7 +990,7 @@ $ poetry run pytest
 ```
 
 While it is handy to have developer tools available in the Poetry environment,
-it is usually recommended to run these using Nox, as described in the 
+it is usually recommended to run these using Nox, as described in the
 section [Using Nox](using-nox).
 
 ### Building and distributing the package
@@ -1014,7 +1014,7 @@ $ poetry publish
 Building the package is done with the [python build] command,
 which generates _distribution packages_
 in the `dist` directory of your project.
-These are compressed archives that an end-user can download and install 
+These are compressed archives that an end-user can download and install
 on their system. They come in two flavours:
 source (or _sdist_) archives, and
 binary packages in the [wheel] format.
@@ -1044,11 +1044,11 @@ The primary benefit of these installation methods is that
 your package is installed into an isolated environment,
 without polluting the system environment,
 or the environments of other applications.
-This way, applications can use specific versions of their direct and indirect 
+This way, applications can use specific versions of their direct and indirect
 dependencies, without getting in each other's way.
 
-If the other project is not managed by Poetry, use whatever package manager 
-the other project uses. You can always install your project into a virtual 
+If the other project is not managed by Poetry, use whatever package manager
+the other project uses. You can always install your project into a virtual
 environment with plain [pip].
 
 (using-nox)=

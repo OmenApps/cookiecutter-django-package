@@ -141,8 +141,8 @@ by applying labels to them, like this:
 
 <!-- table-release-drafter-sections-begin -->
 
-| Pull Request Label | Section in Release Notes    |
-| ------------------ | --------------------------- |
+| Pull Request Label | Section in Release Notes     |
+| ------------------ | ---------------------------- |
 | `breaking`         | 💥 Breaking Changes          |
 | `enhancement`      | 🚀 Features                  |
 | `removal`          | 🔥 Removals and Deprecations |

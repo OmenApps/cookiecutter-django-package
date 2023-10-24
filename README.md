@@ -42,7 +42,7 @@
 
 [cookiecutter]: https://github.com/audreyr/cookiecutter
 [hypermodern python cookiecutter]: https://github.com/omenapps/cookiecutter-django-package/
-[Claudio Jolowicz]: https://github.com/cjolowicz/
+[claudio jolowicz]: https://github.com/cjolowicz/
 
 ## Usage
 
