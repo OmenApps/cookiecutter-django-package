@@ -1,2 +1,1 @@
 FROM postgres:15
-
