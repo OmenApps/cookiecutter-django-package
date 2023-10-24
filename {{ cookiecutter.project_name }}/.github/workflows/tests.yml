@@ -8,7 +8,10 @@ jobs:
   tests:
     name: ${{"{{"}} matrix.session {{"}}"}} ${{"{{"}} matrix.python {{"}}"}} / ${{"{{"}} matrix.django {{"}}"}}
     runs-on: ubuntu-latest
-
+{% if cookiecutter.use_playwright %}
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.39.0-jammy
+{% endif %}
     strategy:
       fail-fast: false
       matrix:
@@ -74,11 +77,11 @@ jobs:
       - name: Install django
         run: |
           python -m pip install 'Django~=${{"{{"}} matrix.django {{"}}"}}.0'
-{% if cookiecutter.use_playwright %}
-      - name: Install Playwright
-        if: matrix.session == 'tests'
-        run: python -m playwright install --with-deps
-{% endif %}
+# {% if cookiecutter.use_playwright %}
+#       - name: Install Playwright
+#         if: matrix.session == 'tests'
+#         run: python -m playwright install --with-deps
+# {% endif %}
       - name: Compute pre-commit cache key
         if: matrix.session == 'pre-commit'
         id: pre-commit-cache
