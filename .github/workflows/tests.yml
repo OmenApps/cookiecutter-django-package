@@ -21,6 +21,7 @@ jobs:
       - uses: actions/setup-python@v4.7.1
         with:
           python-version: ${{ matrix.python }}
+
       - name: Install tools using pip
         working-directory: cookiecutter-django-package
         run: |
@@ -29,8 +30,10 @@ jobs:
           pipx install --pip-args=--constraint=.github/workflows/constraints.txt nox
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           pipx install --pip-args=--constraint=.github/workflows/constraints.txt poetry
+
       - name: Generate project using Cookiecutter
         run: cookiecutter --no-input cookiecutter-django-package
+
       - name: Create git repository
         if: matrix.os != 'windows-latest'
         run: |
@@ -40,6 +43,7 @@ jobs:
           git add .
           git commit --message="Initial import"
         working-directory: cookiecutter-django-package
+
       - name: Create git repository (Windows)
         if: matrix.os == 'windows-latest'
         run: |
@@ -53,6 +57,7 @@ jobs:
           git add --renormalize .
           git commit --message="Initial import"
         working-directory: cookiecutter-django-package
+
       - name: Compute cache key for pre-commit
         if: matrix.os != 'windows-latest'
         id: cache_key
@@ -74,9 +79,11 @@ jobs:
           key: ${{ steps.cache_key.outputs.result }}-${{ hashFiles('cookiecutter-django-package/.pre-commit-config.yaml') }}
           restore-keys: |
             ${{ steps.cache_key.outputs.result }}-
+
       - name: Run test suite using Nox
         run: nox --force-color --python=${{ matrix.python }}
         working-directory: cookiecutter-django-package
+
       - name: Install dependencies using Poetry
         run: poetry install --ansi
         working-directory: cookiecutter-django-package
