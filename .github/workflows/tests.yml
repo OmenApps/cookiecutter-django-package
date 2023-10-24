@@ -31,6 +31,12 @@ jobs:
           pipx inject --pip-args=--constraint=.github/workflows/constraints.txt nox nox-poetry
           pipx install --pip-args=--constraint=.github/workflows/constraints.txt poetry
 
+      - name: Setup docker (missing on MacOS)
+        if: matrix.os == 'macos-latest'
+        uses: crazy-max/ghaction-setup-docker@v2
+        env:
+          COLIMA_START_ARGS: --cpu 4 --memory 8 --disk 32
+
       - name: Generate project using Cookiecutter
         run: cookiecutter --no-input cookiecutter-django-package
 
