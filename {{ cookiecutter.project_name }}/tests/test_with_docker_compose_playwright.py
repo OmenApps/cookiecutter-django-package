@@ -1,6 +1,7 @@
-"""This is a sample test for Playwright using Docker Compose."""
+"""This is a sample test for the Django app with Playwright using Docker Compose."""
 import logging
 import re
+import subprocess  # nosec
 
 import pytest
 import requests
@@ -19,21 +20,36 @@ def is_responsive(url):
         return False
 
 
+def check_docker_ps():
+    """Check if docker ps is running, and log the output using subprocess.Popen."""
+    try:
+        process = subprocess.Popen(
+            ["docker", "ps"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True
+        )  # nosec
+        with process.stdout:
+            for line in iter(process.stdout.readline, b""):
+                logging.info(f"got line from subprocess: {line}")
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+
 @pytest.fixture(scope="session")
 def http_service(docker_ip, docker_services):
     """Ensure that HTTP service is up and responsive."""
     port = docker_services.port_for("django_test", 8000)
     url = f"http://{docker_ip}:{port}"
-    docker_services.wait_until_responsive(timeout=30.0, pause=0.1, check=lambda: is_responsive(url))
+    logging.info(f"http_service url: {url}")
+    check_docker_ps()
+    docker_services.wait_until_responsive(timeout=60.0, pause=0.1, check=lambda: is_responsive(url))
 
     return url
 
 
 def test_status_code(http_service):
     """Check the status code of the HTTP service."""
-    logging.info(f"http_service: {http_service}")
     response = requests.get(http_service, timeout=60)
-    logging.info(f"response: {response}")
+    logging.info(f"test_status_code response: {response}")
 
     assert response.status_code == 200
 

@@ -80,6 +80,8 @@ omit = ["tests/*", "**/migrations/*", "**/__init__.py"]
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tests.settings"
 python_files = ["*test_*.py", "*_test.py", "tests/*.py"]
+log_cli = true
+log_cli_level = "INFO"
 
 [tool.isort]
 profile = "black"
