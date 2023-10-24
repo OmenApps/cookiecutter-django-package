@@ -1,1 +1,1 @@
-"""Forms for {{cookiecutter.package_name}}."""
+"""Forms for {{ cookiecutter.package_name }}."""

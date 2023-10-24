@@ -1,4 +1,4 @@
-"""Pytest configuration for {{cookiecutter.project_name}}."""
+"""Pytest configuration for {{ cookiecutter.project_name }}."""
 
 from pathlib import Path
 

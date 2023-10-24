@@ -1,1 +1,1 @@
-"""URLs for {{cookiecutter.package_name}}."""
+"""URLs for {{ cookiecutter.package_name }}."""

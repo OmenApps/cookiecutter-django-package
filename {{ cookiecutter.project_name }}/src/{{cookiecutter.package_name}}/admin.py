@@ -1,1 +1,1 @@
-"""Admin configuration for {{cookiecutter.package_name}}."""
+"""Admin configuration for {{ cookiecutter.package_name }}."""

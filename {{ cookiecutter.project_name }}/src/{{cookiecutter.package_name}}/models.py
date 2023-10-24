@@ -1,1 +1,1 @@
-"""Models for {{cookiecutter.package_name}}."""
+"""Models for {{ cookiecutter.package_name }}."""

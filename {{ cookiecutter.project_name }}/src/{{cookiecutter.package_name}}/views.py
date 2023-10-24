@@ -1,4 +1,4 @@
-"""Views for {{cookiecutter.package_name}}."""
+"""Views for {{ cookiecutter.package_name }}."""
 
 # from django.core.paginator import Paginator
 # from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
