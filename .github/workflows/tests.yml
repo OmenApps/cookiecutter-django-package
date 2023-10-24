@@ -19,9 +19,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: cookiecutter-django-package
+
       - uses: actions/setup-python@v4.7.1
         with:
           python-version: ${{ matrix.python }}
+
+      - name: Install Docker
+        uses: papodaca/install-docker-action@v1
 
       - name: Install tools using pip
         working-directory: cookiecutter-django-package

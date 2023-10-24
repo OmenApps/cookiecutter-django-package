@@ -39,6 +39,9 @@ jobs:
         with:
           python-version: ${{"{{"}} matrix.python {{"}}"}}
 
+      - name: Install Docker
+        uses: papodaca/install-docker-action@v1
+
       - name: Upgrade pip
         run: |
           pip install --constraint=.github/workflows/constraints.txt pip
@@ -128,6 +131,9 @@ jobs:
         uses: actions/setup-python@v4.7.1
         with:
           python-version: "3.11"
+
+      - name: Install Docker
+        uses: papodaca/install-docker-action@v1
 
       - name: Upgrade pip
         run: |
