@@ -48,7 +48,8 @@ def check_postgres_logs():
 def http_service(docker_ip, docker_services):
     """Ensure that HTTP service is up and responsive."""
     port = docker_services.port_for("django_test", 8000)
-    url = f"http://{docker_ip}:{port}/"
+    # url = f"http://{docker_ip}:{port}/"  # Maybe 0.0.0.0?
+    url = f"http://0.0.0.0:{port}/"
     logging.info(f"http_service url: {url}")
     check_docker_ps()
     check_django_logs()
