@@ -6,9 +6,9 @@ jobs:
     name: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4.7.1
         with:
-          python-version: "3.9"
+          python-version: "3.11"
       - run: |
           pip install --constraint=.github/workflows/constraints.txt pip
           pip install --constraint=.github/workflows/constraints.txt pre-commit
