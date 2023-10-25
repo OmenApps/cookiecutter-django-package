@@ -169,7 +169,7 @@ def tests(session: Session, django: str) -> None:
         "coverage[toml]",
         "pytest",
         "pytest-django",
-        "pytest-docker",
+        # "pytest-docker",
         "pygments",
         {% if cookiecutter.use_playwright and cookiecutter.use_docker_compose %}"playwright",
         "pytest-playwright",{% endif %}
