@@ -16,7 +16,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: "Set up environment"
-        run: docker compose up -d --build
+        run: |
+          docker compose build --build-arg MULTIPLE_PYTHON=True
+          docker compose up -d
 
       - name: "Wait for docker to finish building"
         run: sleep 30
@@ -34,9 +36,15 @@ jobs:
         run: |
           docker compose exec django_test nox --session "coverage(django='4.2')"
 
-      - name: Create coverage report
+      - name: Create coverage report and copy to artifacts
         run: |
           docker compose exec django_test nox --session "coverage(django='4.2')" -- xml
+          docker compose exec django_test cat coverage.xml > coverage.xml
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v3.1.4
+        env:
+          CODECOV_TOKEN: {{ "${{ secrets.CODECOV_TOKEN }}" }}
+
+      - name: "Shut down environment"
+        run: docker compose down

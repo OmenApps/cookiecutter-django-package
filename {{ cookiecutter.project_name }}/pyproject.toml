@@ -32,8 +32,9 @@ django = ">=3.2"
 click = ">=8.0.1"
 
 [tool.poetry.dev-dependencies]
-{% if cookiecutter.use_playwright %}playwright = ">=1.39.0"{% endif %}
-{% if cookiecutter.use_playwright %}pytest-playwright = ">=0.4.3"{% endif %}
+{% if cookiecutter.use_playwright == "y" %}playwright = ">=1.39.0"{% endif %}
+{% if cookiecutter.use_playwright == "y" %}pytest-playwright = ">=0.4.3"{% endif %}
+{% if cookiecutter.use_postgres == "y" %}psycopg2-binary = ">=2.9.6"{% endif %}
 Pygments = ">=2.10.0"
 bandit = ">=1.7.4"
 black = ">=21.10b0"
@@ -50,7 +51,6 @@ nox-poetry = ">=1.0.3"
 pep8-naming = ">=0.12.1"
 pre-commit = ">=3.5.0"
 pre-commit-hooks = ">=4.1.0"
-psycopg2-binary = ">=2.9.6"
 pytest = ">=7.4.2"
 pytest-cov = ">=4.1.0"
 pytest-django = ">=4.5.2"
@@ -61,7 +61,6 @@ sphinx-autobuild = ">=2021.3.14"
 sphinx-click = ">=5.0.1"
 xdoctest = { extras = ["colors"], version = ">=0.15.10" }
 myst-parser = { version = ">=0.16.1" }
-
 [tool.black]
 line-length = 120
 target-version = ["py38", "py39", "py310", "py311"]

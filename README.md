@@ -47,7 +47,7 @@
 ## Usage
 
 ```console
-cookiecutter gh:OmenApps/cookiecutter-django-package --checkout=2023.10.1
+cookiecutter gh:OmenApps/cookiecutter-django-package --checkout=2023.10.2
 ```
 
 ## Features
@@ -65,7 +65,7 @@ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout=2023.10.1
 - Code formatting with [Black] and [Prettier]
 - Import sorting with [isort]
 - Testing with [pytest] and [pytest-django]
-- Optional testing with Docker Compose (using [pytest-docker]) and [PlayWright]
+- Testing with Docker Compose (optionally using [PlayWright]
 - Code coverage with [Coverage.py]
 - Coverage reporting with [Codecov]
 - Command-line interface with [Click]
@@ -75,7 +75,8 @@ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout=2023.10.1
 - Generate API documentation with [autodoc] and [napoleon]
 - Generate command-line reference with [sphinx-click]
 - Manage project labels with [GitHub Labeler]
-- Run an instance of Postgresql and the example project (with your django package installed locally) with [Docker Compose]
+- Optionally run an instance of Postgresql and the example project (with your django
+  package installed locally) using [Docker Compose]
 
 The template supports Python 3.9, 3.10, 3.11, and 3.12.
 
@@ -102,7 +103,6 @@ The template supports Python 3.9, 3.10, 3.11, and 3.12.
 [pypi]: https://pypi.org/
 [pytest]: https://docs.pytest.org/en/latest/
 [pytest-django]: https://pytest-django.readthedocs.io/en/latest/
-[pytest-docker]: https://github.com/avast/pytest-docker/
 [pyupgrade]: https://github.com/asottile/pyupgrade
 [read the docs]: https://readthedocs.org/
 [release drafter]: https://github.com/release-drafter/release-drafter

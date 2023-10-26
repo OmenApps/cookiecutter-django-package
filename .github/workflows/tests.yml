@@ -31,7 +31,9 @@ jobs:
         run: cookiecutter --no-input cookiecutter-django-package
 
       - name: "Set up environment"
-        run: docker compose up -d --build
+        run: |
+          docker compose build --build-arg MULTIPLE_PYTHON=True
+          docker compose up -d
         working-directory: cookiecutter-django-package-instance
 
       - name: Create git repository
@@ -44,7 +46,7 @@ jobs:
         working-directory: cookiecutter-django-package-instance
 
       - name: "Wait for docker to finish building"
-        run: sleep 30
+        run: sleep 10
 
       - name: "Run tests"
         run: docker compose exec django_test nox -r --force-color
@@ -55,12 +57,19 @@ jobs:
           docker compose exec django_test nox --session "coverage(django='4.2')"
         working-directory: cookiecutter-django-package-instance
 
-      - name: Create coverage report
+      - name: Create coverage report and copy to artifacts
         run: |
           docker compose exec django_test nox --session "coverage(django='4.2')" -- xml
+          docker compose exec django_test cat coverage.xml > coverage.xml
         working-directory: cookiecutter-django-package-instance
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v3.1.4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
           working-directory: cookiecutter-django-package-instance
+
+      - name: "Shut down environment"
+        run: docker compose down
+        working-directory: cookiecutter-django-package-instance

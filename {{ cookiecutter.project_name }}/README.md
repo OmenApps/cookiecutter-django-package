@@ -6,8 +6,8 @@
 [![License](https://img.shields.io/pypi/l/{{ cookiecutter.project_name }})][license]
 
 [![Read the documentation at https://{{ cookiecutter.project_name }}.readthedocs.io/](https://img.shields.io/readthedocs/{{ cookiecutter.project_name }}/latest.svg?label=Read%20the%20Docs)][read the docs]
-[![Tests](https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_name }}/workflows/Tests/badge.svg)][tests]
-[![Codecov](https://codecov.io/gh/{{ cookiecutter.github_user }}/{{ cookiecutter.project_name }}/branch/main/graph/badge.svg)][codecov]
+[![Tests](https://github.com/{{ cookiecutter.github_owner }}/{{ cookiecutter.project_name }}/workflows/tests.yml/badge.svg)][tests]
+[![Codecov](https://codecov.io/gh/{{ cookiecutter.github_owner }}/{{ cookiecutter.project_name }}/branch/main/graph/badge.svg)][codecov]
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)][pre-commit]
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
