@@ -30,6 +30,7 @@ DJANGO_VERSIONS = [
     "3.2",
     "4.1",
     "4.2",
+    "5.0b1",
 ]
 
 # PYTHON_STABLE_VERSION should be set to the latest stable Python version
