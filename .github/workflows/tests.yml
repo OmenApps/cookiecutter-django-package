@@ -49,7 +49,7 @@ jobs:
       - name: "Run tests"
         run: docker compose exec django_test nox -r --force-color
         working-directory: cookiecutter-django-package-instance
-        
+
       - name: Combine coverage data and display human readable report
         run: |
           docker compose exec django_test nox --session "coverage(django='4.2')"
