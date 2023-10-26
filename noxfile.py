@@ -8,7 +8,7 @@ from nox.sessions import Session
 #
 nox.options.sessions = ["docs"]
 nox.options.default_venv_backend = "venv"
-owner, repository = "omenapps", "cookiecutter-django-package"
+owner, repository = "OmenApps", "cookiecutter-django-package"
 labels = "cookiecutter", "documentation"
 # Docs in the release that need to be version bumped
 bump_paths = "README.md", "docs/guide.rst", "docs/index.rst", "docs/quickstart.md"

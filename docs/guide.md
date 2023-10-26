@@ -177,7 +177,7 @@ by pointing Cookiecutter to its [GitHub repository][cookiecutter django package]
 Use the `--checkout` option with the [current stable release][2023.10.1]:
 
 ```console
-$ cookiecutter gh:omenapps/cookiecutter-django-package --checkout="2023.10.1"
+$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2023.10.1"
 ```
 
 Cookiecutter downloads the template, and asks you a series of questions about
@@ -2362,7 +2362,7 @@ This workflow performs the following automated steps:
 [.github/dependabot.yml]: https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates
 [.gitignore]: https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring
 [.readthedocs.yml]: https://docs.readthedocs.io/en/stable/config-file/v2.html
-[2023.10.1]: https://github.com/omenapps/cookiecutter-django-package/releases/tag/2023.10.1
+[2023.10.1]: https://github.com/OmenApps/cookiecutter-django-package/releases/tag/2023.10.1
 [abstract syntax tree]: https://docs.python.org/3/library/ast.html
 [actions/cache]: https://github.com/actions/cache
 [actions/checkout]: https://github.com/actions/checkout
@@ -2389,7 +2389,7 @@ This workflow performs the following automated steps:
 [constraints file]: https://pip.pypa.io/en/stable/user_guide/#constraints-files
 [contributor covenant]: https://www.contributor-covenant.org
 [cookiecutter]: https://github.com/audreyr/cookiecutter
-[cookiecutter django package]: https://github.com/omenapps/cookiecutter-django-package
+[cookiecutter django package]: https://github.com/OmenApps/cookiecutter-django-package
 [coverage.py]: https://coverage.readthedocs.io/
 [crazy-max/ghaction-github-labeler]: https://github.com/crazy-max/ghaction-github-labeler
 [cupper]: https://github.com/senseyeio/cupper

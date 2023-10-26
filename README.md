@@ -17,14 +17,14 @@
 [black project]: https://github.com/psf/black
 [calver badge]: https://img.shields.io/badge/calver-YYYY.MM.RR-22bfda.svg
 [calver]: http://calver.org/
-[code of conduct]: https://github.com/omenapps/cookiecutter-django-package/blob/main/CODE_OF_CONDUCT.md
-[codecov badge]: https://codecov.io/gh/omenapps/cookiecutter-django-package-instance/branch/main/graph/badge.svg
-[codecov page]: https://codecov.io/gh/omenapps/cookiecutter-django-package-instance
+[code of conduct]: https://github.com/OmenApps/cookiecutter-django-package/blob/main/CODE_OF_CONDUCT.md
+[codecov badge]: https://codecov.io/gh/OmenApps/cookiecutter-django-package-instance/branch/main/graph/badge.svg
+[codecov page]: https://codecov.io/gh/OmenApps/cookiecutter-django-package-instance
 [contributor covenant badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
-[github actions badge]: https://github.com/omenapps/cookiecutter-django-package/workflows/Tests/badge.svg
-[github actions page]: https://github.com/omenapps/cookiecutter-django-package/actions?workflow=Tests
-[github page]: https://github.com/omenapps/cookiecutter-django-package
-[license badge]: https://img.shields.io/github/license/omenapps/cookiecutter-django-package
+[github actions badge]: https://github.com/OmenApps/cookiecutter-django-package/workflows/Tests/badge.svg
+[github actions page]: https://github.com/OmenApps/cookiecutter-django-package/actions?workflow=Tests
+[github page]: https://github.com/OmenApps/cookiecutter-django-package
+[license badge]: https://img.shields.io/github/license/OmenApps/cookiecutter-django-package
 [license]: https://opensource.org/licenses/MIT
 [pre-commit badge]: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
 [pre-commit project]: https://pre-commit.com/
@@ -41,7 +41,7 @@
 ✨📚✨ [Read the full documentation][readthedocs page]
 
 [cookiecutter]: https://github.com/audreyr/cookiecutter
-[hypermodern python cookiecutter]: https://github.com/omenapps/cookiecutter-django-package/
+[hypermodern python cookiecutter]: https://github.com/OmenApps/cookiecutter-django-package/
 [claudio jolowicz]: https://github.com/cjolowicz/
 
 ## Usage

@@ -56,11 +56,11 @@ please [file an issue] along with a detailed description.
 
 ## Credits
 
-This project was generated from [@omenapps]'s [Cookiecutter Django Package] template.
+This project was generated from [@OmenApps]'s [Cookiecutter Django Package] template.
 
-[@omenapps]: https://github.com/omenapps
+[@OmenApps]: https://github.com/OmenApps
 [pypi]: https://pypi.org/
-[cookiecutter django package]: https://github.com/omenapps/cookiecutter-django-package
+[cookiecutter django package]: https://github.com/OmenApps/cookiecutter-django-package
 [file an issue]: https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_name }}/issues
 [pip]: https://pip.pypa.io/
 
