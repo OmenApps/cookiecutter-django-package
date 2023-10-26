@@ -7,4 +7,4 @@ docstring-convention = google
 rst-roles = class,const,func,meth,mod,ref
 rst-directives = deprecated
 count = true
-exclude = .git,__pycache__,dist,migrations
+exclude = .git,.nox,__pycache__,dist,migrations
