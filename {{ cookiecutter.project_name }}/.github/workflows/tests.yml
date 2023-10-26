@@ -22,7 +22,7 @@ jobs:
         run: sleep 30
 
       - name: "Run tests"
-        run: docker compose exec django_test nox -r
+        run: docker compose exec django_test nox -r --force-color
 
       - name: Upload documentation
         uses: actions/upload-artifact@v3
@@ -32,11 +32,11 @@ jobs:
 
       - name: Combine coverage data and display human readable report
         run: |
-          nox --session "coverage(django='4.2')"
+          docker compose exec django_test nox --session "coverage(django='4.2')"
 
       - name: Create coverage report
         run: |
-          nox --session "coverage(django='4.2')" -- xml
+          docker compose exec django_test nox --session "coverage(django='4.2')" -- xml
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v3.1.4
