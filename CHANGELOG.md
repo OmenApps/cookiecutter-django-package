@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Ensure Postgres gets added to settings if selected
 - Add option to install only one version of Python
 - Ensure coverage.xml file gets written to local directory during workflow
-- Add cookiecutter option to specify different repo owner to resolve issue with 
+- Add cookiecutter option to specify different repo owner to resolve issue with
   tags when the repo belongs to someone other than the user running cookiecutter (e.g.: an organization)
 - Improve docs
 

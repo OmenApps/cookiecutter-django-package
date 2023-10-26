@@ -1848,8 +1848,8 @@ Follow these steps to set up PyPI for your repository:
 1. Sign up at [PyPI].
 2. Go to the Account Settings on PyPI,
    generate an API token, and copy it.
-3. Go to the repository settings on GitHub, and
-   add a secret named `PYPI_TOKEN` with the token you just copied.
+3. Go to the repository settings on GitHub, and add a repository
+   secret named `PYPI_TOKEN` with the token you just copied.
 
 PyPI is integrated with your repository
 via the [Release workflow](the-release-workflow).
@@ -1864,8 +1864,8 @@ Follow these steps to set up TestPyPI for your repository:
 1. Sign up at [TestPyPI].
 2. Go to the Account Settings on TestPyPI,
    generate an API token, and copy it.
-3. Go to the repository settings on GitHub, and
-   add a secret named `TEST_PYPI_TOKEN` with the token you just copied.
+3. Go to the repository settings on GitHub, and add a repository
+   secret named `TEST_PYPI_TOKEN` with the token you just copied.
 
 TestPyPI is integrated with your repository
 via the [Release workflow](the-release-workflow).
@@ -1880,12 +1880,15 @@ Follow these steps to set up Codecov for your repository:
 
 1. Sign up at [Codecov].
 2. Install their GitHub app.
+3. Once logged into the Codecov website, click on "Setup repo" for your
+   repository, and copy the provided token.
+4. Go to the repository settings on GitHub, and add a repository secret
+   named `CODECOV_TOKEN` with the token you just copied.
 
 The configuration is included in the repository,
 in the file [codecov.yml][codecov configuration].
 
-Codecov integrates with your repository
-via its GitHub app.
+Codecov integrates with your repository via its GitHub app.
 The [Tests workflow](the-tests-workflow) uploads the coverage data.
 
 (dependabot-integration)=
