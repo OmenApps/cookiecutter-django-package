@@ -58,7 +58,7 @@ please [file an issue] along with a detailed description.
 
 This project was generated from [@OmenApps]'s [Cookiecutter Django Package] template.
 
-[@OmenApps]: https://github.com/OmenApps
+[@omenapps]: https://github.com/OmenApps
 [pypi]: https://pypi.org/
 [cookiecutter django package]: https://github.com/OmenApps/cookiecutter-django-package
 [file an issue]: https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_name }}/issues
