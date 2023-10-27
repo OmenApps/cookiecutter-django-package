@@ -5,7 +5,6 @@ import shutil
 import nox
 from nox.sessions import Session
 
-#
 nox.options.sessions = ["docs"]
 nox.options.default_venv_backend = "venv"
 owner, repository = "OmenApps", "cookiecutter-django-package"

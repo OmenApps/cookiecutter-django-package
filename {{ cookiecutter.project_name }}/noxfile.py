@@ -73,7 +73,7 @@ def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
     virtualenv = session.env.get("VIRTUAL_ENV")
     if virtualenv is None:
         return
-    
+
     headers = {
         # pre-commit < 2.16.0
         "python": f"""\
