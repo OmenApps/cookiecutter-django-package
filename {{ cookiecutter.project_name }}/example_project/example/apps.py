@@ -7,4 +7,4 @@ class ExampleConfig(AppConfig):
     """Example app config."""
 
     default_auto_field = "django.db.models.BigAutoField"
-    name = "example"
+    name = "example_project.example"

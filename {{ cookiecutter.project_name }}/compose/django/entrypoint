@@ -3,7 +3,7 @@
 set -o errexit
 set -o pipefail
 set -o nounset
-
+{% if cookiecutter.use_postgres == "y" %}
 postgres_ready() {
 python << END
 import sys
@@ -26,5 +26,5 @@ until postgres_ready; do
   sleep 1
 done
 >&2 echo 'PostgreSQL is available'
-
+{% endif %}
 exec "$@"

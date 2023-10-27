@@ -5,20 +5,19 @@ import shutil
 from pathlib import Path
 
 
-use_docker_compose = bool({{cookiecutter.use_docker_compose}})
+use_playwright = bool("{{cookiecutter.use_playwright}}" == "y")
 
 
 def remove(filepath):
+    """Remove file or directory."""
     if os.path.isfile(filepath):
         os.remove(filepath)
     elif os.path.isdir(filepath):
         shutil.rmtree(filepath)
 
 
-if not use_docker_compose:
-    remove("docker-compose.yml")
-    remove("compose")
-    remove(".github/workflows/tests_docker.yml")
+if not use_playwright:
+    # Remove the playwright-specific files.
     remove("tests/test_with_docker_compose_playwright.py")
 
 

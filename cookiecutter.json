@@ -5,6 +5,7 @@
   "author": "Jack Linke",
   "email": "jacklinke@gmail.com",
   "github_user": "jacklinke",
+  "github_owner": "{{ cookiecutter.github_user }}",
   "version": "{% now 'utc', '%Y' %}.{% now 'utc', '%m' %}.1",
   "copyright_year": "{% now 'utc', '%Y' %}",
   "license": ["MIT", "Apache-2.0", "GPL-3.0"],
@@ -17,7 +18,7 @@
     "Development Status :: 6 - Mature",
     "Development Status :: 7 - Inactive"
   ],
-  "use_playwright": true,
-  "use_docker_compose": true,
+  "use_playwright": "y",
+  "use_postgres": "y",
   "docker_compose_python_version": ["3.11", "3.12", "3.10", "3.9"]
 }

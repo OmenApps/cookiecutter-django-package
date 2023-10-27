@@ -3,18 +3,15 @@ on: [push, pull_request]
 
 jobs:
   tests:
+    env:
+      FORCE_COLOR: "1"
+      PRE_COMMIT_COLOR: "always"
+
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - { python: "3.9", os: ubuntu-latest }
-          - { python: "3.10", os: ubuntu-latest }
-          - { python: "3.11", os: ubuntu-latest }
-          - { python: "3.12", os: ubuntu-latest }
-    name: Python ${{ matrix.python }} (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    container:
-      image: mcr.microsoft.com/playwright/python:v1.39.0-jammy
+
+    name: "Integration testing"
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,10 +19,7 @@ jobs:
 
       - uses: actions/setup-python@v4.7.1
         with:
-          python-version: ${{ matrix.python }}
-
-      - name: Install Docker
-        uses: papodaca/install-docker-action@v1
+          python-version: 3.11
 
       - name: Install tools using pip
         working-directory: cookiecutter-django-package
@@ -36,39 +30,46 @@ jobs:
       - name: Generate project using Cookiecutter
         run: cookiecutter --no-input cookiecutter-django-package
 
+      - name: "Set up environment"
+        run: |
+          docker compose build --build-arg MULTIPLE_PYTHON=True
+          docker compose up -d
+        working-directory: cookiecutter-django-package-instance
+
       - name: Create git repository
         run: |
-          git init
-          git config --local user.name "GitHub Action"
-          git config --local user.email "action@github.com"
-          git add .
-          git commit --message="Initial import"
+          docker compose exec django_test git init
+          docker compose exec django_test git config --local user.name "GitHub Action"
+          docker compose exec django_test git config --local user.email "action@github.com"
+          docker compose exec django_test git add .
+          docker compose exec django_test git commit --message="Initial import"
         working-directory: cookiecutter-django-package-instance
 
-      - name: Compute cache key for pre-commit
-        id: cache_key
-        shell: python
+      - name: "Wait for docker to finish building"
+        run: sleep 10
+
+      - name: "Run tests"
+        run: docker compose exec django_test nox -r --force-color
+        working-directory: cookiecutter-django-package-instance
+
+      - name: Combine coverage data and display human readable report
         run: |
-          import hashlib
-          import sys
-
-          python = "py{}.{}".format(*sys.version_info[:2])
-          payload = sys.version.encode() + sys.executable.encode()
-          digest = hashlib.sha256(payload).hexdigest()
-          result = "${{ runner.os }}-{}-{}-pre-commit".format(python, digest)
-
-          print("::set-output name=result::{}".format(result))
-      - uses: actions/cache@v3
-        with:
-          path: ~/.cache/pre-commit
-          key: ${{ steps.cache_key.outputs.result }}-${{ hashFiles('cookiecutter-django-package-instance/.pre-commit-config.yaml') }}
-          restore-keys: |
-            ${{ steps.cache_key.outputs.result }}-
-
-      - name: Run test suite using Nox
-        run: nox --force-color --python=${{ matrix.python }}
+          docker compose exec django_test nox --session "coverage(django='4.2')"
         working-directory: cookiecutter-django-package-instance
 
-      - name: Install dependencies using Poetry
-        run: poetry install --ansi
+      - name: Create coverage report and copy to artifacts
+        run: |
+          docker compose exec django_test nox --session "coverage(django='4.2')" -- xml
+          docker compose exec django_test cat coverage.xml > coverage.xml
+        working-directory: cookiecutter-django-package-instance
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v3.1.4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          working-directory: cookiecutter-django-package-instance
+
+      - name: "Shut down environment"
+        run: docker compose down
         working-directory: cookiecutter-django-package-instance

@@ -23,17 +23,16 @@ except ImportError:
 
 
 # DJANGO_STABLE_VERSION should be set to the latest Django LTS version
-# and should *not* appear in DJANGO_VERSIONS
 
 DJANGO_STABLE_VERSION = "4.2"
 DJANGO_VERSIONS = [
     "3.2",
     "4.1",
     "4.2",
+    "5.0b1",
 ]
 
 # PYTHON_STABLE_VERSION should be set to the latest stable Python version
-# and should *not* appear in PYTHON_VERSIONS
 
 PYTHON_STABLE_VERSION = "3.11"
 PYTHON_VERSIONS = ["3.9", "3.10", "3.11", "3.12"]
@@ -169,13 +168,13 @@ def tests(session: Session, django: str) -> None:
         "coverage[toml]",
         "pytest",
         "pytest-django",
-        "pytest-docker",
-        "pygments",
-        {% if cookiecutter.use_playwright and cookiecutter.use_docker_compose %}"playwright",
-        "pytest-playwright",{% endif %}
+        "pygments",{% if cookiecutter.use_playwright == "y" %}
+        "playwright",
+        "pytest-playwright",
+{% endif %}
     )
     try:
-        session.run("coverage", "run",{% if not cookiecutter.use_playwright %} "--parallel",{% endif %} "-m", "pytest", *session.posargs)
+        session.run("coverage", "run", "-m", "pytest", *session.posargs)
     finally:
         if session.interactive:
             session.notify("coverage", posargs=[])
@@ -195,8 +194,8 @@ def coverage(session: Session, django: str) -> None:
     session.run("coverage", *args)
 
 
-@session(python=PYTHON_VERSIONS)
-@nox.parametrize("django", DJANGO_VERSIONS)
+@session(python=PYTHON_STABLE_VERSION)
+@nox.parametrize("django", DJANGO_STABLE_VERSION)
 def xdoctest(session: Session, django: str) -> None:
     """Run examples with xdoctest."""
     if session.posargs:

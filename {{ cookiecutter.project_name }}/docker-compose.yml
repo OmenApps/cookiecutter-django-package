@@ -1,8 +1,8 @@
 version: "3"
-
+{% if cookiecutter.use_postgres == "y" %}
 volumes:
   local_postgres_data:
-
+{% endif %}
 services:
   django_test:
     build:
@@ -15,14 +15,11 @@ services:
     env_file:
       - ./compose/django/.django
     ports:
-      - "8111:8000"
+      - "8111:8111"
     command: /start
-
+{% if cookiecutter.use_postgres == "y" %}
   postgres_test:
-    build:
-      context: .
-      dockerfile: ./compose/postgres/Dockerfile
-    image: {{ cookiecutter.package_name }}_local_postgres
+    image: postgres:15
     container_name: postgres_test
     volumes:
       - local_postgres_data:/var/lib/postgresql/data
@@ -34,3 +31,4 @@ services:
       - PASSWORD=postgres
       - HOST=postgres
       - PORT=5432
+{% endif %}

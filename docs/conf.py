@@ -17,7 +17,7 @@ linkcheck_ignore = [
     "https://github.com/pycqa/pep8-naming#",
     "https://github.com/terrencepreilly/darglint#",
     "https://github.com/PyCQA/mccabe#",
-    "https://github.com/omenapps/cookiecutter-django-package/releases/tag/",
+    "https://github.com/OmenApps/cookiecutter-django-package/releases/tag/",
     "https://cookiecutter-django-package.readthedocs.io",
     "https://badgen.net/badge/status/alpha/d8624d",
 ]

@@ -3,165 +3,48 @@ on: [push, pull_request]
 
 jobs:
   tests:
-    name: ${{"{{"}} matrix.session {{"}}"}} ${{"{{"}} matrix.python {{"}}"}} / ${{"{{"}} matrix.django {{"}}"}}
-    runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright/python:v1.39.0-jammy
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - { python: "3.11", django: "4.2", session: "pre-commit" }
-          - { python: "3.11", django: "4.2", session: "safety" }
-          - { python: "3.9", django: "3.2", session: "tests" }
-          - { python: "3.9", django: "4.2", session: "tests" }
-          - { python: "3.10", django: "3.2", session: "tests" }
-          - { python: "3.10", django: "4.2", session: "tests" }
-          - { python: "3.11", django: "3.2", session: "tests" }
-          - { python: "3.11", django: "4.2", session: "tests" }
-          - { python: "3.12", django: "3.2", session: "tests" }
-          - { python: "3.12", django: "4.2", session: "tests" }
-          - { python: "3.11", django: "4.2", session: "xdoctest" }
-          - { python: "3.11", django: "4.2", session: "docs-build" }
-
     env:
-      NOXSESSION: ${{"{{"}} matrix.session {{"}}"}}
       FORCE_COLOR: "1"
       PRE_COMMIT_COLOR: "always"
 
+    strategy:
+      fail-fast: false
+
+    name: "Integration testing"
+    runs-on: ubuntu-latest
     steps:
-      - name: Check out the repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python ${{"{{"}} matrix.python {{"}}"}}
-        uses: actions/setup-python@v4.7.1
-        with:
-          python-version: ${{"{{"}} matrix.python {{"}}"}}
-
-      - name: Install Docker
-        uses: papodaca/install-docker-action@v1
-
-      - name: Upgrade pip
+      - name: "Set up environment"
         run: |
-          pip install --constraint=.github/workflows/constraints.txt pip
-          pip --version
+          docker compose build --build-arg MULTIPLE_PYTHON=True
+          docker compose up -d
 
-      - name: Upgrade pip in virtual environments
-        shell: python
-        run: |
-          import os
-          import pip
+      - name: "Wait for docker to finish building"
+        run: sleep 10
 
-          with open(os.environ["GITHUB_ENV"], mode="a") as io:
-              print(f"VIRTUALENV_PIP={pip.__version__}", file=io)
-
-      - name: Install Poetry
-        run: |
-          pip install --constraint=.github/workflows/constraints.txt poetry
-          poetry --version
-
-      - name: Install Nox
-        run: |
-          pip install --constraint=.github/workflows/constraints.txt nox nox-poetry
-          nox --version
-
-      - name: Install pytest
-        run: |
-          pip install --constraint=.github/workflows/constraints.txt pytest pytest-cov pytest-django pytest-docker
-          pytest --version
-
-      - name: Install django
-        run: |
-          python -m pip install 'Django~=${{"{{"}} matrix.django {{"}}"}}.0'
-
-      - name: Compute pre-commit cache key
-        if: matrix.session == 'pre-commit'
-        id: pre-commit-cache
-        shell: python
-        run: |
-          import hashlib
-          import sys
-
-          python = "py{}.{}".format(*sys.version_info[:2])
-          payload = sys.version.encode() + sys.executable.encode()
-          digest = hashlib.sha256(payload).hexdigest()
-          result = {{ '"${{ runner.os }}-{}-{}-pre-commit".format(python, digest[:8])' }}
-
-          print("::set-output name=result::{}".format(result))
-
-      - name: Restore pre-commit cache
-        uses: actions/cache@v3
-        if: matrix.session == 'pre-commit'
-        with:
-          path: ~/.cache/pre-commit
-          key: {{ "${{ steps.pre-commit-cache.outputs.result }}-${{ hashFiles('.pre-commit-config.yaml') }}" }}
-          restore-keys: |
-            {{ "${{ steps.pre-commit-cache.outputs.result }}-" }}
-
-      - name: Run Nox
-        run: |
-          nox --python=${{"{{"}} matrix.python {{"}}"}}
-
-      - name: Upload coverage data
-        if: always() && matrix.session == 'tests'
-        uses: "actions/upload-artifact@v3"
-        with:
-          name: coverage-data
-          path: ".coverage.*"
+      - name: "Run tests"
+        run: docker compose exec django_test nox -r --force-color
 
       - name: Upload documentation
-        if: matrix.session == 'docs-build'
         uses: actions/upload-artifact@v3
         with:
           name: docs
           path: docs/_build
 
-  coverage:
-    runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright/python:v1.39.0-jammy
-
-    needs: tests
-    steps:
-      - name: Check out the repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4.7.1
-        with:
-          python-version: "3.11"
-
-      - name: Install Docker
-        uses: papodaca/install-docker-action@v1
-
-      - name: Upgrade pip
-        run: |
-          pip install --constraint=.github/workflows/constraints.txt pip
-          pip --version
-
-      - name: Install Poetry
-        run: |
-          pip install --constraint=.github/workflows/constraints.txt poetry
-          poetry --version
-
-      - name: Install Nox
-        run: |
-          pip install --constraint=.github/workflows/constraints.txt nox nox-poetry
-          nox --version
-
-      - name: Download coverage data
-        uses: actions/download-artifact@v3
-        with:
-          name: coverage-data
-
       - name: Combine coverage data and display human readable report
         run: |
-          nox --session "coverage(django='4.2.0')"
+          docker compose exec django_test nox --session "coverage(django='4.2')"
 
-      - name: Create coverage report
+      - name: Create coverage report and copy to artifacts
         run: |
-          nox --session "coverage(django='4.2.0')" -- xml
+          docker compose exec django_test nox --session "coverage(django='4.2')" -- xml
+          docker compose exec django_test cat coverage.xml > coverage.xml
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v3.1.4
+        env:
+          CODECOV_TOKEN: {{ "${{ secrets.CODECOV_TOKEN }}" }}
+
+      - name: "Shut down environment"
+        run: docker compose down

@@ -135,15 +135,15 @@ After publishing the release, the following automated steps are triggered:
 [continuous integration]: https://cookiecutter-django-package.readthedocs.io/en/stable/quickstart.html#continuous-integration
 [cookiecutter]: https://cookiecutter.readthedocs.io/
 [documentation]: https://cookiecutter-django-package.readthedocs.io/
-[github]: https://github.com/omenapps/cookiecutter-django-package
-[issue tracker]: https://github.com/omenapps/cookiecutter-django-package/issues
+[github]: https://github.com/OmenApps/cookiecutter-django-package
+[issue tracker]: https://github.com/OmenApps/cookiecutter-django-package/issues
 [mit license]: https://opensource.org/licenses/MIT
 [nox]: https://nox.thea.codes/
 [nox-poetry]: https://nox-poetry.readthedocs.io/
 [poetry]: https://python-poetry.org/
-[pull request]: https://github.com/omenapps/cookiecutter-django-package/pulls
+[pull request]: https://github.com/OmenApps/cookiecutter-django-package/pulls
 [read the docs]: https://cookiecutter-django-package.readthedocs.io/
-[source code]: https://github.com/omenapps/cookiecutter-django-package
+[source code]: https://github.com/OmenApps/cookiecutter-django-package
 [user guide]: https://cookiecutter-django-package.readthedocs.io/en/latest/guide.html#how-to-test-your-project
 
 <!-- github-only -->

@@ -17,14 +17,14 @@
 [black project]: https://github.com/psf/black
 [calver badge]: https://img.shields.io/badge/calver-YYYY.MM.RR-22bfda.svg
 [calver]: http://calver.org/
-[code of conduct]: https://github.com/omenapps/cookiecutter-django-package/blob/main/CODE_OF_CONDUCT.md
-[codecov badge]: https://codecov.io/gh/omenapps/cookiecutter-django-package-instance/branch/main/graph/badge.svg
-[codecov page]: https://codecov.io/gh/omenapps/cookiecutter-django-package-instance
+[code of conduct]: https://github.com/OmenApps/cookiecutter-django-package/blob/main/CODE_OF_CONDUCT.md
+[codecov badge]: https://codecov.io/gh/OmenApps/cookiecutter-django-package-instance/branch/main/graph/badge.svg
+[codecov page]: https://codecov.io/gh/OmenApps/cookiecutter-django-package-instance
 [contributor covenant badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
-[github actions badge]: https://github.com/omenapps/cookiecutter-django-package/workflows/Tests/badge.svg
-[github actions page]: https://github.com/omenapps/cookiecutter-django-package/actions?workflow=Tests
-[github page]: https://github.com/omenapps/cookiecutter-django-package
-[license badge]: https://img.shields.io/github/license/omenapps/cookiecutter-django-package
+[github actions badge]: https://github.com/OmenApps/cookiecutter-django-package/workflows/Tests/badge.svg
+[github actions page]: https://github.com/OmenApps/cookiecutter-django-package/actions?workflow=Tests
+[github page]: https://github.com/OmenApps/cookiecutter-django-package
+[license badge]: https://img.shields.io/github/license/OmenApps/cookiecutter-django-package
 [license]: https://opensource.org/licenses/MIT
 [pre-commit badge]: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
 [pre-commit project]: https://pre-commit.com/
@@ -41,13 +41,13 @@
 ✨📚✨ [Read the full documentation][readthedocs page]
 
 [cookiecutter]: https://github.com/audreyr/cookiecutter
-[hypermodern python cookiecutter]: https://github.com/omenapps/cookiecutter-django-package/
+[hypermodern python cookiecutter]: https://github.com/OmenApps/cookiecutter-django-package/
 [claudio jolowicz]: https://github.com/cjolowicz/
 
 ## Usage
 
 ```console
-cookiecutter gh:OmenApps/cookiecutter-django-package --checkout=2023.10.1
+cookiecutter gh:OmenApps/cookiecutter-django-package --checkout=2023.10.2
 ```
 
 ## Features
@@ -65,7 +65,7 @@ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout=2023.10.1
 - Code formatting with [Black] and [Prettier]
 - Import sorting with [isort]
 - Testing with [pytest] and [pytest-django]
-- Optional testing with Docker Compose (using [pytest-docker]) and [PlayWright]
+- Testing with Docker Compose (optionally using [PlayWright]
 - Code coverage with [Coverage.py]
 - Coverage reporting with [Codecov]
 - Command-line interface with [Click]
@@ -75,7 +75,8 @@ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout=2023.10.1
 - Generate API documentation with [autodoc] and [napoleon]
 - Generate command-line reference with [sphinx-click]
 - Manage project labels with [GitHub Labeler]
-- Run an instance of Postgresql and the example project (with your django package installed locally) with [Docker Compose]
+- Optionally run an instance of Postgresql and the example project (with your django
+  package installed locally) using [Docker Compose]
 
 The template supports Python 3.9, 3.10, 3.11, and 3.12.
 
@@ -102,7 +103,6 @@ The template supports Python 3.9, 3.10, 3.11, and 3.12.
 [pypi]: https://pypi.org/
 [pytest]: https://docs.pytest.org/en/latest/
 [pytest-django]: https://pytest-django.readthedocs.io/en/latest/
-[pytest-docker]: https://github.com/avast/pytest-docker/
 [pyupgrade]: https://github.com/asottile/pyupgrade
 [read the docs]: https://readthedocs.org/
 [release drafter]: https://github.com/release-drafter/release-drafter

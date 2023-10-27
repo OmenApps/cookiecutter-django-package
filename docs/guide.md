@@ -57,7 +57,7 @@ Here is a detailed list of features for this Python template:
 The {{ CDP }} uses [Calendar Versioning] with a `YYYY.MM.RR` versioning scheme, where `RR`
 is the consecutive release number in the given year and month.
 
-The current stable release is [2023.10.1].
+The current stable release is [2023.10.2].
 
 (installation)=
 
@@ -174,10 +174,10 @@ $ poetry self update
 
 Create a project from this template
 by pointing Cookiecutter to its [GitHub repository][cookiecutter django package].
-Use the `--checkout` option with the [current stable release][2023.10.1]:
+Use the `--checkout` option with the [current stable release][2023.10.2]:
 
 ```console
-$ cookiecutter gh:omenapps/cookiecutter-django-package --checkout="2023.10.1"
+$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2023.10.2"
 ```
 
 Cookiecutter downloads the template, and asks you a series of questions about
@@ -196,22 +196,26 @@ Here is a complete list of the project variables defined by this template:
   - Example
 - - `project_name`
   - Project name on PyPI and GitHub
-  - `cookiecutter-django-package-demo`
+  - `cookiecutter-django-package-instance`
 - - `package_name`
   - Import name of the package
-  - `cookiecutter_django_package_demo`
+  - `cookiecutter_django_package_instance`
 - - `package_description`
   - Short description to use to describe the package
   - `A Django package that ...`
 - - `author`
   - Primary author
-  - `Your Name`
+  - `Jack Linke`
 - - `email`
   - E-mail address of the author
-  - `your@email.com`
+  - `jacklinke@gmail.com`
 - - `github_user`
   - GitHub username of the author
   - `yourusername`
+- - `github_owner`
+  - GitHub username for the owner of the repository, if different from `github_user`.
+    This is useful when you may be pushing the project to an organization account.
+  - `github_user`
 - - `version`
   - Initial project version
   - `0.0.0`
@@ -224,11 +228,14 @@ Here is a complete list of the project variables defined by this template:
 - - `development_status`
   - Development status of the project
   - `Development Status :: 3 - Alpha`
-- - `use_docker_compose`
-  - Should Docker Compose files be included?
+- - `use_playwright`
+  - Should Playwright be included and used for tests?
+  - `y`
+- - `use_postgres`
+  - Should Postgres be included in the example application and tests?
   - `y`
 - - `docker_compose_python_version`
-  - Python version to include in docker compose files
+  - Default Python version to use in docker compose
   - `3.11`
 
 :::
@@ -357,6 +364,8 @@ For more details on these files, refer to the section [The test suite](the-test-
   - Test package initialization
 - - `tests/test_<package_name>.py`
   - Test cases for the new Django package
+- - `tests/test_with_docker_compose_playwright.py`
+  - Test cases for using Playwright with the new Django package
 
 :::
 
@@ -522,11 +531,14 @@ The test suite is located in the `tests` directory:
 tests
 ├── __init__.py
 └── test_<package_name>.py
+└── test_with_docker_compose_playwright.py
 ```
 
 The test suite is [declared as a package][pytest layout],
 and mirrors the source layout of the package under test.
 The file `test_<package_name>.py` contains tests for the Django package.
+The optional `test_with_docker_compose_playwright` tests the example project
+using [Playwright] and [Docker Compose].
 
 Initially, the test suite contains a single test case, checking whether the
 program exits with a status code of zero. It also provides a [test fixture]
@@ -1836,8 +1848,8 @@ Follow these steps to set up PyPI for your repository:
 1. Sign up at [PyPI].
 2. Go to the Account Settings on PyPI,
    generate an API token, and copy it.
-3. Go to the repository settings on GitHub, and
-   add a secret named `PYPI_TOKEN` with the token you just copied.
+3. Go to the repository settings on GitHub, and add a repository
+   secret named `PYPI_TOKEN` with the token you just copied.
 
 PyPI is integrated with your repository
 via the [Release workflow](the-release-workflow).
@@ -1852,8 +1864,8 @@ Follow these steps to set up TestPyPI for your repository:
 1. Sign up at [TestPyPI].
 2. Go to the Account Settings on TestPyPI,
    generate an API token, and copy it.
-3. Go to the repository settings on GitHub, and
-   add a secret named `TEST_PYPI_TOKEN` with the token you just copied.
+3. Go to the repository settings on GitHub, and add a repository
+   secret named `TEST_PYPI_TOKEN` with the token you just copied.
 
 TestPyPI is integrated with your repository
 via the [Release workflow](the-release-workflow).
@@ -1868,12 +1880,15 @@ Follow these steps to set up Codecov for your repository:
 
 1. Sign up at [Codecov].
 2. Install their GitHub app.
+3. Once logged into the Codecov website, click on "Setup repo" for your
+   repository, and copy the provided token.
+4. Go to the repository settings on GitHub, and add a repository secret
+   named `CODECOV_TOKEN` with the token you just copied.
 
 The configuration is included in the repository,
 in the file [codecov.yml][codecov configuration].
 
-Codecov integrates with your repository
-via its GitHub app.
+Codecov integrates with your repository via its GitHub app.
 The [Tests workflow](the-tests-workflow) uploads the coverage data.
 
 (dependabot-integration)=
@@ -2215,6 +2230,11 @@ Run the test suite using [Nox](using-Nox):
 $ nox -r
 ```
 
+:::{note}
+If using [Playwright], you must first bring Docker Compose up. See
+[How to run your code in Docker Compose](how-to-run-your-code-in-docker-compose)
+:::
+
 (how-to-run-your-code-in-docker-compose)=
 
 ### How to run your Django Package in Docker Compose
@@ -2228,7 +2248,32 @@ using docker compose:
 $ docker compose up -d --build
 ```
 
+The following containers will be built and run:
+
+- `django_test`: The Django project that uses your Django package
+- `postgres_test` (optional): The PostgreSQL database for the Django project
+
 Then, open the example project in your browser: http://localhost:8111
+
+You can also run django commands in the docker container:
+
+```console
+$ docker compose exec django_test python manage.py check
+```
+
+By default, only the version of python selected when generating the project is used
+in building the docker image. To include the additional python versions,
+set the `MULTIPLE_PYTHON` buld-arg to true while building, and bring the compose
+project up like this:
+
+```console
+$ docker compose build --build-arg MULTIPLE_PYTHON=True
+$ docker compose up -d
+```
+
+:::{note}
+The tests run with the `MULTIPLE_PYTHON` build-arg already set.
+:::
 
 ### How to make code changes
 
@@ -2362,7 +2407,7 @@ This workflow performs the following automated steps:
 [.github/dependabot.yml]: https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates
 [.gitignore]: https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring
 [.readthedocs.yml]: https://docs.readthedocs.io/en/stable/config-file/v2.html
-[2023.10.1]: https://github.com/omenapps/cookiecutter-django-package/releases/tag/2023.10.1
+[2023.10.2]: https://github.com/OmenApps/cookiecutter-django-package/releases/tag/2023.10.2
 [abstract syntax tree]: https://docs.python.org/3/library/ast.html
 [actions/cache]: https://github.com/actions/cache
 [actions/checkout]: https://github.com/actions/checkout
@@ -2389,7 +2434,7 @@ This workflow performs the following automated steps:
 [constraints file]: https://pip.pypa.io/en/stable/user_guide/#constraints-files
 [contributor covenant]: https://www.contributor-covenant.org
 [cookiecutter]: https://github.com/audreyr/cookiecutter
-[cookiecutter django package]: https://github.com/omenapps/cookiecutter-django-package
+[cookiecutter django package]: https://github.com/OmenApps/cookiecutter-django-package
 [coverage.py]: https://coverage.readthedocs.io/
 [crazy-max/ghaction-github-labeler]: https://github.com/crazy-max/ghaction-github-labeler
 [cupper]: https://github.com/senseyeio/cupper
@@ -2401,6 +2446,7 @@ This workflow performs the following automated steps:
 [dependabot issue 4435]: https://github.com/dependabot/dependabot-core/issues/4435
 [dependabot]: https://dependabot.com/
 [dev-prod parity]: https://12factor.net/dev-prod-parity
+[docker compose]: https://docs.docker.com/compose/
 [editable install]: https://pip.pypa.io/en/stable/cli/pip_install/#install-editable
 [end-of-file-fixer]: https://github.com/pre-commit/pre-commit-hooks#end-of-file-fixer
 [flake8 configuration]: https://flake8.pycqa.org/en/latest/user/configuration.html
@@ -2455,6 +2501,7 @@ This workflow performs the following automated steps:
 [pip install]: https://pip.pypa.io/en/stable/reference/pip_install/
 [pip]: https://pip.pypa.io/
 [pipx]: https://pipxproject.github.io/pipx/
+[playwright]: https://playwright.dev/
 [poetry add]: https://python-poetry.org/docs/cli/#add
 [poetry env]: https://python-poetry.org/docs/managing-environments/
 [poetry export]: https://python-poetry.org/docs/cli/#export

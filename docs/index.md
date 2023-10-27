@@ -11,7 +11,7 @@ guide
 contributing
 Code of Conduct <codeofconduct>
 license
-Changelog <https://github.com/omenapps/cookiecutter-django-package/releases>
+Changelog <https://github.com/OmenApps/cookiecutter-django-package/releases>
 ```
 
 ```{include} ../README.md
@@ -27,7 +27,7 @@ end-before: <!-- badges-end -->
 ## Usage
 
 ```console
-$ cookiecutter gh:omenapps/cookiecutter-django-package --checkout="2023.10.1"
+$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2023.10.2"
 ```
 
 ## Features
@@ -66,5 +66,5 @@ The project template is centered around the following tools:
 [2]: https://nox.thea.codes/
 [3]: https://github.com/features/actions
 [cookiecutter]: https://github.com/audreyr/cookiecutter
-[cookiecutter django package]: https://github.com/omenapps/cookiecutter-django-package
+[cookiecutter django package]: https://github.com/OmenApps/cookiecutter-django-package
 [hypermodern python cookiecutter]: https://github.com/cjolowicz/cookiecutter-hypermodern-python
