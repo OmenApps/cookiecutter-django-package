@@ -25,7 +25,7 @@ jobs:
           result = "${{ runner.os }}-{}-{}-pre-commit".format(python, digest)
 
           print("::set-output name=result::{}".format(result))
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ~/.cache/pre-commit
           key: ${{ steps.cache_key_prefix.outputs.result }}-${{ hashFiles('.pre-commit-config.yaml') }}
