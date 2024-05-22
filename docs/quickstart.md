@@ -31,7 +31,7 @@ It is recommended to set up Python 3.9, 3.10, 3.11, and 3.12 using [pyenv].
 Generate a Python project:
 
 ```console
-$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2024.5.1"
+$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2024.05.2"
 ```
 
 Change to the root directory of your new project,
