@@ -1,11 +1,12 @@
 """This is a sample test for the {{ cookiecutter.project_name }} Django app with Playwright using Docker Compose."""
+
 import logging
 import re
 
 import pytest
 import requests
-from playwright.sync_api import Page
-from playwright.sync_api import expect
+from playwright.sync_api import Page  # pylint: disable=unused-import
+from playwright.sync_api import expect  # pylint: disable=unused-import
 from requests.exceptions import ConnectionError
 
 
@@ -22,7 +23,7 @@ def is_responsive(url):
 @pytest.fixture(scope="session")
 def http_service():
     """Ensure that the service is up and responsive."""
-    url = "http://0.0.0.0:8111/"
+    url = "http://127.0.0.1:8111/"
     try:
         response = requests.get(url, timeout=60)
         logging.info(f"test_status_code response: {response} for url: {url}")

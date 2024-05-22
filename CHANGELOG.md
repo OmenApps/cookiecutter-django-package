@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 
+## [2024.5.1]
+
+- Bump requirements
+
 ## [2023.10.2]
 
 - Reorganize example project to move manage.py into main directory
@@ -26,3 +30,4 @@ Initial release!
 [unreleased]: https://github.com/OmenApps/cookiecutter-django-package/compare/HEAD...HEAD
 [2023.10.1]: https://github.com/OmenApps/cookiecutter-django-package/releases/tag/2023.10.1
 [2023.10.2]: https://github.com/OmenApps/cookiecutter-django-package/releases/tag/2023.10.2
+[2024.5.1]: https://github.com/OmenApps/cookiecutter-django-package/releases/tag/2024.5.1

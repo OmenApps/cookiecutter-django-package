@@ -27,7 +27,7 @@ end-before: <!-- badges-end -->
 ## Usage
 
 ```console
-$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2023.10.2"
+$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2024.5.1"
 ```
 
 ## Features

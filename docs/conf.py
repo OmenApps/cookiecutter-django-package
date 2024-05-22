@@ -1,7 +1,6 @@
 """Sphinx configuration."""
 from datetime import datetime
 
-
 project = "Cookiecutter Django Package"
 author = "Jack Linke"
 copyright = f"{datetime.now().year}, {author}"

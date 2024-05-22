@@ -24,23 +24,21 @@ except ImportError:
 
 # DJANGO_STABLE_VERSION should be set to the latest Django LTS version
 
-DJANGO_STABLE_VERSION = "4.2"
+DJANGO_STABLE_VERSION = "5.0"
 DJANGO_VERSIONS = [
-    "3.2",
-    "4.1",
     "4.2",
-    "5.0b1",
+    "5.0",
 ]
 
 # PYTHON_STABLE_VERSION should be set to the latest stable Python version
 
-PYTHON_STABLE_VERSION = "3.11"
+PYTHON_STABLE_VERSION = "3.12"
 PYTHON_VERSIONS = ["3.9", "3.10", "3.11", "3.12"]
 
 
 package = "{{ cookiecutter.package_name }}"
 
-nox.needs_version = ">= 2022.1.7"
+nox.needs_version = ">= 2024.4.15"
 nox.options.sessions = (
     "pre-commit",
     "safety",
@@ -174,6 +172,7 @@ def tests(session: Session, django: str) -> None:
 {% endif %}
     )
     try:
+        {% if cookiecutter.use_playwright == "y" %}session.run("playwright", "install", *session.posargs){% endif %}
         session.run("coverage", "run", "-m", "pytest", *session.posargs)
     finally:
         if session.interactive:

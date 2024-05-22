@@ -57,7 +57,7 @@ Here is a detailed list of features for this Python template:
 The {{ CDP }} uses [Calendar Versioning] with a `YYYY.MM.RR` versioning scheme, where `RR`
 is the consecutive release number in the given year and month.
 
-The current stable release is [2023.10.2].
+The current stable release is [2024.5.1].
 
 (installation)=
 
@@ -104,10 +104,10 @@ Install the latest point release of every supported Python version.
 This project template supports Python 3.9, 3.10, 3.11, and 3.12.
 
 ```console
-$ pyenv install 3.12.0
-$ pyenv install 3.11.6
-$ pyenv install 3.10.13
-$ pyenv install 3.9.18
+$ pyenv install 3.12.3
+$ pyenv install 3.11.9
+$ pyenv install 3.10.14
+$ pyenv install 3.9.19
 ```
 
 After creating your project (see [below](creating-a-project)), you can make
@@ -115,7 +115,7 @@ these Python versions accessible in the project directory, using the
 following command:
 
 ```console
-$ pyenv local 3.11.6 3.12.0 3.10.13 3.9.18
+$ pyenv local 3.12.3 3.11.9 3.10.14 3.9.19
 ```
 
 The first version listed is the one used when you type plain `python`.
@@ -174,10 +174,10 @@ $ poetry self update
 
 Create a project from this template
 by pointing Cookiecutter to its [GitHub repository][cookiecutter django package].
-Use the `--checkout` option with the [current stable release][2023.10.2]:
+Use the `--checkout` option with the [current stable release][2024.5.1]:
 
 ```console
-$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2023.10.2"
+$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2024.5.1"
 ```
 
 Cookiecutter downloads the template, and asks you a series of questions about
@@ -236,7 +236,7 @@ Here is a complete list of the project variables defined by this template:
   - `y`
 - - `docker_compose_python_version`
   - Default Python version to use in docker compose
-  - `3.11`
+  - `3.12`
 
 :::
 
@@ -931,11 +931,11 @@ for every Python version supported by your project, and easily switch between th
 ```console
 $ poetry env use 3.9
 $ poetry env use 3.10
-$ poetry env use 3.12
 $ poetry env use 3.11
+$ poetry env use 3.12
 ```
 
-Only one Poetry environment can be active at any time. Note that `3.11` comes last,
+Only one Poetry environment can be active at any time. Note that `3.12` comes last,
 to ensure that the current Python release is the active environment.
 Install your package with `poetry install` into each environment after creating it.
 
@@ -1098,7 +1098,7 @@ For example, the following may be more practical during development
 (this will only run tests and type checks, on the current Python release):
 
 ```console
-$ nox -p 3.11 -rs tests
+$ nox -p 3.12 -rs tests
 ```
 
 Many sessions accept additional options after `--` separator.
@@ -1124,23 +1124,23 @@ The following table gives an overview of the available Nox sessions:
   - Default
 - - [coverage](the-coverage-session)
   - Report coverage with [Coverage.py]
-  - `3.11`
+  - `3.12`
   - (✓)
 - - [docs](the-docs-session)
   - Build and serve [Sphinx] documentation
-  - `3.11`
+  - `3.12`
   -
 - - [docs-build](the-docs-build-session)
   - Build [Sphinx] documentation
-  - `3.11`
+  - `3.12`
   - ✓
 - - [pre-commit](the-pre-commit-session)
   - Lint with [pre-commit]
-  - `3.11`
+  - `3.12`
   - ✓
 - - [safety](the-safety-session)
   - Scan dependencies with [Safety]
-  - `3.11`
+  - `3.12`
   - ✓
 - - [tests](the-tests-session)
   - Run tests with [pytest]
@@ -1254,7 +1254,7 @@ For example, the following command runs the test suite
 using the current stable release of Python:
 
 ```console
-$ nox --session=tests --python=3.11
+$ nox --session=tests --python=3.12
 ```
 
 Use the separator `--` to pass additional options to `pytest`.
@@ -1340,7 +1340,7 @@ For example, the following command runs the examples
 using the current stable release of Python:
 
 ```console
-$ nox --session=xdoctest --python=3.11
+$ nox --session=xdoctest --python=3.12
 ```
 
 By default, the Nox session uses the `all` subcommand to run all examples.
@@ -2098,19 +2098,19 @@ as shown in the table below:
   - Python versions
 - - [pre-commit](the-pre-commit-session)
   - Ubuntu
-  - 3.11
+  - 3.12
 - - [safety](the-safety-session)
   - Ubuntu
-  - 3.11
+  - 3.12
 - - [tests](the-tests-session)
   - Ubuntu
-  - 3.11, 3.9, 3.10, 3.12
+  - 3.12, 3.9, 3.10, 3.11
 - - [coverage](the-coverage-session)
   - Ubuntu
-  - 3.11
+  - 3.12
 - - [docs-build](the-docs-build-session)
   - Ubuntu
-  - 3.11
+  - 3.12
 
 :::
 
@@ -2407,7 +2407,7 @@ This workflow performs the following automated steps:
 [.github/dependabot.yml]: https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates
 [.gitignore]: https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring
 [.readthedocs.yml]: https://docs.readthedocs.io/en/stable/config-file/v2.html
-[2023.10.2]: https://github.com/OmenApps/cookiecutter-django-package/releases/tag/2023.10.2
+[2024.5.1]: https://github.com/OmenApps/cookiecutter-django-package/releases/tag/2024.5.1
 [abstract syntax tree]: https://docs.python.org/3/library/ast.html
 [actions/cache]: https://github.com/actions/cache
 [actions/checkout]: https://github.com/actions/checkout

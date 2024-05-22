@@ -4,7 +4,6 @@ import os
 import shutil
 from pathlib import Path
 
-
 use_playwright = bool("{{cookiecutter.use_playwright}}" == "y")
 
 

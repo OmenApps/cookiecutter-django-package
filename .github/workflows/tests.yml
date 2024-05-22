@@ -17,9 +17,9 @@ jobs:
         with:
           path: cookiecutter-django-package
 
-      - uses: actions/setup-python@v4.7.1
+      - uses: actions/setup-python@v5.1.0
         with:
-          python-version: 3.11
+          python-version: 3.12
 
       - name: Install tools using pip
         working-directory: cookiecutter-django-package
@@ -54,17 +54,17 @@ jobs:
 
       - name: Combine coverage data and display human readable report
         run: |
-          docker compose exec django_test nox --session "coverage(django='4.2')"
+          docker compose exec django_test nox --session "coverage(django='5.0')"
         working-directory: cookiecutter-django-package-instance
 
       - name: Create coverage report and copy to artifacts
         run: |
-          docker compose exec django_test nox --session "coverage(django='4.2')" -- xml
+          docker compose exec django_test nox --session "coverage(django='5.0')" -- xml
           docker compose exec django_test cat coverage.xml > coverage.xml
         working-directory: cookiecutter-django-package-instance
 
       - name: Upload coverage report
-        uses: codecov/codecov-action@v3.1.4
+        uses: codecov/codecov-action@v4
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:

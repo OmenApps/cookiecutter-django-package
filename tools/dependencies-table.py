@@ -3,7 +3,6 @@ from pathlib import Path
 
 import tomli
 
-
 PROJECT = Path("{{ cookiecutter.project_name }}")
 JINJA_PATTERN = re.compile(r"{%.*%}")
 JINJA_PATTERN2 = re.compile(r"{{[^{]*}}")

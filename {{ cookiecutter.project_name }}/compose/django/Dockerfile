@@ -1,24 +1,28 @@
-{% if cookiecutter.use_playwright == "y" %}FROM mcr.microsoft.com/playwright:v1.39.0-jammy{% else %}FROM ubuntu:22.04{% endif %}
+{% if cookiecutter.use_playwright == "y" %}FROM mcr.microsoft.com/playwright:v1.44.0-jammy{% else %}FROM ubuntu:24.04{% endif %}
 
 ARG BUILD_ENVIRONMENT=local
 ARG APP_HOME=/app
 ARG DEBIAN_FRONTEND=noninteractive
 ARG MULTIPLE_PYTHON  # Set to True if you want to use multiple Python versions
 
-ARG PYTHON_3_9=3.9.18
-ARG PYTHON_3_10=3.10.13
-ARG PYTHON_3_11=3.11.6
-ARG PYTHON_3_12=3.12.0
+ARG PYTHON_3_9=3.9.19
+ARG PYTHON_3_10=3.10.14
+ARG PYTHON_3_11=3.11.9
+ARG PYTHON_3_12=3.12.3
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
+ENV COMPOSE_DOCKER_CLI_BUILD 1
+ENV DOCKER_BUILDKIT 1
 ENV BUILD_ENV ${BUILD_ENVIRONMENT}
 
 WORKDIR ${APP_HOME}
 
 # Install apt packages
-RUN apt-get update
-RUN apt-get install -y \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt update \
+    && apt-get --no-install-recommends install -y \
     # Some basic tools and libraries
     bash curl wget git make \
     build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev \
@@ -52,33 +56,38 @@ RUN apt-get update
 
 # Make Python version(s) accessible in the project and install Python venv
 RUN if [ "$MULTIPLE_PYTHON" = "True" ] ; then \
-    apt-get install -y python3.11-venv python3.9-venv python3.10-venv python3.12-venv; \
-    pyenv local ${PYTHON_3_11} ${PYTHON_3_9} ${PYTHON_3_10} ${PYTHON_3_12}; \
+    apt-get install -y python3.12-venv python3.9-venv python3.10-venv python3.11-venv; \
+    pyenv local ${PYTHON_3_12} ${PYTHON_3_9} ${PYTHON_3_10} ${PYTHON_3_11}; \
     else \
     apt-get install -y python{{ cookiecutter.docker_compose_python_version }}-venv; \
     pyenv local {{ cookiecutter.docker_compose_python_version }}; \
     fi
 
 # Ensure pip is installed
-RUN apt-get install -y python3-pip
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get --no-install-recommends install -y \
+    python3-pip
 
 # Install Poetry
 RUN pip install poetry
 
-# Copy application files
-COPY noxfile.py manage.py poetry.lock pyproject.toml ${APP_HOME}
+# Copy poetry files
+COPY poetry.lock pyproject.toml ${APP_HOME}
+
+# Install dependencies:
+RUN poetry config virtualenvs.create false \
+    && poetry install --with dev --no-interaction --no-ansi --no-root
+
+# Copy remaining project files
+COPY noxfile.py manage.py ${APP_HOME}
 COPY .darglint .editorconfig .flake8 .gitignore .pre-commit-config.yaml .prettierignore .readthedocs.yml bandit.yml ${APP_HOME}
 COPY CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md LICENSE README.md ${APP_HOME}
-
 COPY ./docs/ ${APP_HOME}/docs
 COPY ./example_project/ ${APP_HOME}/example_project/
 COPY ./tests/ ${APP_HOME}/tests/
 COPY ./src/ ${APP_HOME}/
 COPY ./src/ ${APP_HOME}/src/
-
-# Install dependencies:
-RUN poetry config virtualenvs.create false \
-    && poetry install --with dev --no-interaction --no-ansi --no-root
 
 # Rehash pyenv shims
 RUN pyenv rehash

@@ -31,7 +31,7 @@ It is recommended to set up Python 3.9, 3.10, 3.11, and 3.12 using [pyenv].
 Generate a Python project:
 
 ```console
-$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2023.10.2"
+$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2024.5.1"
 ```
 
 Change to the root directory of your new project,
@@ -141,8 +141,8 @@ by applying labels to them, like this:
 
 <!-- table-release-drafter-sections-begin -->
 
-| Pull Request Label | Section in Release Notes     |
-| ------------------ | ---------------------------- |
+| Pull Request Label | Section in Release Notes    |
+| ------------------ | --------------------------- |
 | `breaking`         | 💥 Breaking Changes          |
 | `enhancement`      | 🚀 Features                  |
 | `removal`          | 🔥 Removals and Deprecations |
