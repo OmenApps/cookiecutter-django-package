@@ -57,7 +57,7 @@ Here is a detailed list of features for this Python template:
 The {{ CDP }} uses [Calendar Versioning] with a `YYYY.MM.RR` versioning scheme, where `RR`
 is the consecutive release number in the given year and month.
 
-The current stable release is [2024.05.2].
+The current stable release is [2024.05.3].
 
 (installation)=
 
@@ -174,10 +174,10 @@ $ poetry self update
 
 Create a project from this template
 by pointing Cookiecutter to its [GitHub repository][cookiecutter django package].
-Use the `--checkout` option with the [current stable release][2024.05.2]:
+Use the `--checkout` option with the [current stable release][2024.05.3]:
 
 ```console
-$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2024.05.2"
+$ cookiecutter gh:OmenApps/cookiecutter-django-package --checkout="2024.05.3"
 ```
 
 Cookiecutter downloads the template, and asks you a series of questions about
@@ -2407,7 +2407,7 @@ This workflow performs the following automated steps:
 [.github/dependabot.yml]: https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates
 [.gitignore]: https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring
 [.readthedocs.yml]: https://docs.readthedocs.io/en/stable/config-file/v2.html
-[2024.05.2]: https://github.com/OmenApps/cookiecutter-django-package/releases/tag/2024.05.2
+[2024.05.3]: https://github.com/OmenApps/cookiecutter-django-package/releases/tag/2024.05.3
 [abstract syntax tree]: https://docs.python.org/3/library/ast.html
 [actions/cache]: https://github.com/actions/cache
 [actions/checkout]: https://github.com/actions/checkout

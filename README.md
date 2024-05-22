@@ -47,7 +47,7 @@
 ## Usage
 
 ```console
-cookiecutter gh:OmenApps/cookiecutter-django-package --checkout=2024.05.2
+cookiecutter gh:OmenApps/cookiecutter-django-package --checkout=2024.05.3
 ```
 
 ## Features
